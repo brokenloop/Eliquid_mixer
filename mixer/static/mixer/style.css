@@ -5,8 +5,18 @@ body {
 
 .container {
   display: grid;
-  grid-template-columns: 150px 150px 150px;
-  grid-template-rows: auto auto auto;
+  max-width: 800px;
+  height: 600px;
+  margin: auto;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 10px;
+  grid-template-rows: 150px 1fr;
+  grid-row-gap: 10px;
+  grid-template-areas:
+    "a a"
+    "b c"
+  ;
+
 }
 
 /* items */
@@ -19,18 +29,22 @@ body {
 
 /* specific item styles */
 
-.item-1 {
-  background: #b03532;
-  grid-column: 1;
-  grid-row: 1;
+.item {
+  border-radius: 25px;
 }
-.item-2 {
-  background: #33a8a5;
-  grid-column: 2;
-  grid-row: 1;
+
+.basics {
+  /*background: #b03532;*/
+  border: 1px solid blue;
+  grid-area: a;
 }
-.item-3 {
-  background: #30997a;
-  grid-column: 3;
-  grid-row: 1;
+.ingredients {
+  /*background: #33a8a5;*/
+  border: 1px solid blue;
+  grid-area: b;
+}
+.output {
+  /*background: #30997a;*/
+  border: 1px solid blue;
+  grid-area: c;
 }

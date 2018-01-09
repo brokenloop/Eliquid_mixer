@@ -10,18 +10,25 @@
 
   {% load staticfiles %}
 
-  <!-- Custom CSS -->
+  <!-- React -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.6/react.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.6/react-dom.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.js"></script>
+
+
+  <!-- CSS -->
   <link href="{% static 'mixer/style.css' %}" rel="stylesheet">
 
   <!-- JavaScript -->
-  <script type="text/javascript" src="{% static 'mixer/scripts.js' %}"></script>
+  <script type="text/babel" src="{% static 'mixer/scripts.js' %}"></script>
 </head>
 
 <body>
-    <section class="container">
-      <div class="item-1">1</div>
-      <div class="item-2">2</div>
-      <div class="item-3">3</div>
-    </section>
+    <div id="root"></div>
+    <!--<section class="container">-->
+      <!--<div class="item basics"></div>-->
+      <!--<div class="item ingredients"></div>-->
+      <!--<div class="item output"></div>-->
+    <!--</section>-->
 </body>
 </html>
