@@ -13,7 +13,6 @@ class Recipe extends React.Component {
     constructor(props) {
         super(props);
         this.handleFlavourChange = this.handleFlavourChange.bind(this);
-        this.addFlavour = this.addFlavour.bind(this);
         const flavours = {};
         for (var i = 0; i < this.props.ingredients; i++) {
             flavours[i] = 0;
@@ -23,40 +22,39 @@ class Recipe extends React.Component {
         }
     }
 
-    handleFlavourChange(e) {
+    handleFlavourChange(key, event) {
         // make local copy of state
         const flavours = Object.assign({}, this.state.flavours);
-        console.log(flavours);
-    }
-
-    addFlavour(key) {
-        // make local copy of state
-        const localFlavours = Object.assign({}, this.state.flavours);
-
-        // if new flavour already in the state, do nothing
-        if (localFlavours[key]) return;
-
-        // add it to the state,
-        localFlavours[key] = 0;
-        this.setState({flavours: localFlavours});
+        flavours[key] = event.target.value;
+        this.setState({flavours: flavours});
+        console.log(this.state.flavours);
     }
 
     render() {
         // adding IngredientInputs to list
-        const ingredientList = [];
+        const ingredientInputs = [];
+        const ingredientOutputs = [];
         for (var i = 0; i < this.props.ingredients; i++) {
-            // this.addFlavour(i);
-            ingredientList[i] =
+            ingredientInputs[i] =
                 <IngredientInput
                     flavourNumber={i}
                     key={i.toString()}
                     onChangeFunction={this.handleFlavourChange}/>;
+
+            ingredientOutputs[i] =
+                <IngredientOutput
+                    flavourNumber={i}
+                    key={i.toString()}
+                    volume = {this.props.volume}
+                    percentage = {this.state.flavours[i]} />
         }
 
         //rendering list of IngredientInputs
         return (
             <div>
-                {ingredientList}
+                {ingredientInputs}
+                <br/>
+                {ingredientOutputs}
             </div>
         );
     }
@@ -73,21 +71,26 @@ class IngredientInput extends React.Component {
     render() {
         return (
           <fieldset>
-              <legend>Flavour {this.props.flavourNumber}</legend>
-              <input onChange={this.props.onChangeFunction}/>
+              <legend>Flavour {this.props.flavourNumber} Input</legend>
+              <input onChange={this.props.onChangeFunction.bind(this, this.props.flavourNumber)}/> %
           </fieldset>
         );
     }
 }
 
-class OutPut extends React.Component {
-
+class IngredientOutput extends React.Component {
+    render() {
+        const outputVolume = (this.props.volume * this.props.percentage) / 100;
+        return(
+            <fieldset>
+              <legend>Flavour {this.props.flavourNumber} Output</legend>
+              <div>{outputVolume} g</div>
+          </fieldset>
+        )
+    }
 }
-
 
 ReactDOM.render(
     <App />,
     document.getElementById('root')
 );
-
-console.log("Fuck");
