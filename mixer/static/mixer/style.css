@@ -1,0 +1,36 @@
+body {
+  padding-top: 40px;
+  background: #f5f7f8;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 150px 150px 150px;
+  grid-template-rows: auto auto auto;
+}
+
+/* items */
+
+.container div {
+  color: white;
+  font-size: 20px;
+  padding: 20px;
+  }
+
+/* specific item styles */
+
+.item-1 {
+  background: #b03532;
+  grid-column: 1;
+  grid-row: 1;
+}
+.item-2 {
+  background: #33a8a5;
+  grid-column: 2;
+  grid-row: 1;
+}
+.item-3 {
+  background: #30997a;
+  grid-column: 3;
+  grid-row: 1;
+}
