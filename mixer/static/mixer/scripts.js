@@ -3,7 +3,7 @@ class App extends React.Component {
         return (
             // eventually make ingredients change dynamically based on user input - add/remove
             <div>
-                <Recipe ingredients={3} />
+                {/*<Recipe ingredients={3} />*/}
             </div>
         )
     }
@@ -59,7 +59,7 @@ class Recipe extends React.Component {
 
         //rendering list of IngredientInputs
         return (
-            <section className="container">
+            <div>
                 <div className="basics item">
                     <BasicSection volume={this.state.volume} onChangeFunction={this.handleVolumeChange}/>
                 </div>
@@ -71,7 +71,7 @@ class Recipe extends React.Component {
                 <div className="output item">
                     {ingredientOutputs}
                 </div>
-            </section>
+            </div>
         );
     }
 }
@@ -89,8 +89,9 @@ class IngredientInput extends React.Component {
           <fieldset>
               <legend>Flavour {this.props.flavourNumber} Input</legend>
               <input
-                  value={this.props.percentage}
-                  onChange={this.props.onChangeFunction.bind(this, this.props.flavourNumber)}/> %
+                  className="inputBox percentageInput"
+                  placeholder ={this.props.percentage}
+                  onChange={this.props.onChangeFunction.bind(this, this.props.flavourNumber)}/>
           </fieldset>
         );
     }
@@ -111,10 +112,15 @@ class IngredientOutput extends React.Component {
 class BasicSection extends React.Component {
     render() {
         return(
-            <fieldset>
-                <legend>Recipe Volume</legend>
-                <input value={this.props.volume} onChange={this.props.onChangeFunction}/>
-            </fieldset>
+            <div className="panel panel-default">
+              <div className="panel-heading">Batch Details</div>
+              <div className="panel-body">
+                  <input
+                    className="inputBox"
+                    placeholder={this.props.volume}
+                    onChange={this.props.onChangeFunction}/>
+              </div>
+            </div>
         )
     }
 }
