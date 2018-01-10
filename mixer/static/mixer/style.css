@@ -22,7 +22,7 @@ body {
 /* items */
 
 .container div {
-  color: white;
+  /*color: white;*/
   font-size: 20px;
   padding: 20px;
   }
@@ -30,21 +30,19 @@ body {
 /* specific item styles */
 
 .item {
-  border-radius: 25px;
+  /*border: 1px solid blue;*/
+  /*border-radius: 25px;*/
 }
 
 .basics {
   /*background: #b03532;*/
-  border: 1px solid blue;
   grid-area: a;
 }
 .ingredients {
   /*background: #33a8a5;*/
-  border: 1px solid blue;
   grid-area: b;
 }
 .output {
   /*background: #30997a;*/
-  border: 1px solid blue;
   grid-area: c;
 }

@@ -3,7 +3,7 @@ class App extends React.Component {
         return (
             // eventually make ingredients change dynamically based on user input - add/remove
             <div>
-                <Recipe ingredients={3} volume={30} />
+                <Recipe ingredients={3} />
             </div>
         )
     }
@@ -13,12 +13,15 @@ class Recipe extends React.Component {
     constructor(props) {
         super(props);
         this.handleFlavourChange = this.handleFlavourChange.bind(this);
+        this.handleVolumeChange = this.handleVolumeChange.bind(this);
+
         const flavours = {};
         for (var i = 0; i < this.props.ingredients; i++) {
             flavours[i] = 0;
         }
         this.state = {
-            flavours: flavours
+            flavours: flavours,
+            volume: 30
         }
     }
 
@@ -30,6 +33,10 @@ class Recipe extends React.Component {
         console.log(this.state.flavours);
     }
 
+    handleVolumeChange(event) {
+        this.setState({volume: event.target.value});
+    }
+
     render() {
         // adding IngredientInputs to list
         const ingredientInputs = [];
@@ -39,23 +46,32 @@ class Recipe extends React.Component {
                 <IngredientInput
                     flavourNumber={i}
                     key={i.toString()}
+                    percentage={this.state.flavours[i]}
                     onChangeFunction={this.handleFlavourChange}/>;
 
             ingredientOutputs[i] =
                 <IngredientOutput
                     flavourNumber={i}
                     key={i.toString()}
-                    volume = {this.props.volume}
+                    volume = {this.state.volume}
                     percentage = {this.state.flavours[i]} />
         }
 
         //rendering list of IngredientInputs
         return (
-            <div>
-                {ingredientInputs}
-                <br/>
-                {ingredientOutputs}
-            </div>
+            <section className="container">
+                <div className="basics item">
+                    <BasicSection volume={this.state.volume} onChangeFunction={this.handleVolumeChange}/>
+                </div>
+                <div className="ingredients item">
+                    {ingredientInputs}
+                </div>
+
+                {/*<br/>*/}
+                <div className="output item">
+                    {ingredientOutputs}
+                </div>
+            </section>
         );
     }
 }
@@ -72,7 +88,9 @@ class IngredientInput extends React.Component {
         return (
           <fieldset>
               <legend>Flavour {this.props.flavourNumber} Input</legend>
-              <input onChange={this.props.onChangeFunction.bind(this, this.props.flavourNumber)}/> %
+              <input
+                  value={this.props.percentage}
+                  onChange={this.props.onChangeFunction.bind(this, this.props.flavourNumber)}/> %
           </fieldset>
         );
     }
@@ -84,8 +102,19 @@ class IngredientOutput extends React.Component {
         return(
             <fieldset>
               <legend>Flavour {this.props.flavourNumber} Output</legend>
-              <div>{outputVolume} g</div>
+              {outputVolume} ml
           </fieldset>
+        )
+    }
+}
+
+class BasicSection extends React.Component {
+    render() {
+        return(
+            <fieldset>
+                <legend>Recipe Volume</legend>
+                <input value={this.props.volume} onChange={this.props.onChangeFunction}/>
+            </fieldset>
         )
     }
 }
