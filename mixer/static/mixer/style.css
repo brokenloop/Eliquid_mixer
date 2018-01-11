@@ -117,15 +117,15 @@
 
 
 
-.row {
-  min-height: 500px;
-}
+/*.row {*/
+  /*min-height: 500px;*/
+/*}*/
 
 .inputGroup {
   background-color: lightgreen;
 }
 
-.inputCard {
+.card {
   margin-top: 10px;
     margin-bottom: 10px;
 }

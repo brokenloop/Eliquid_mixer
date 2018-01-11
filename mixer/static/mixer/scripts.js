@@ -2,17 +2,7 @@ class App extends React.Component {
     render() {
         return (
             // eventually make ingredients change dynamically based on user input - add/remove
-            <div className="container">
-                <div className="row">
-                    <div className="col-sm-5 inputGroup">
-                        {/*<InputSection/>*/}
-                        <Accordion/>
-                    </div>
-                    <div className="col-sm outputGroup">
-                        Right side
-                    </div>
-                </div>
-            </div>
+            <Recipe ingredients={3}/>
         )
     }
 }
@@ -52,9 +42,12 @@ class Recipe extends React.Component {
         for (var i = 0; i < this.props.ingredients; i++) {
             ingredientInputs[i] =
                 <IngredientInput
+                    inputId={"input" + i}
+                    label={"Flavour " + i}
                     flavourNumber={i}
                     key={i.toString()}
-                    percentage={this.state.flavours[i]}
+                    placeholder={this.state.flavours[i]}
+                    addon="%"
                     onChangeFunction={this.handleFlavourChange}/>;
 
             ingredientOutputs[i] =
@@ -65,52 +58,117 @@ class Recipe extends React.Component {
                     percentage = {this.state.flavours[i]} />
         }
 
+        const batchInput = [<InputComponent
+                                inputId={"volume"}
+                                label="volume"
+                                key="volume"
+                                placeholder={this.state.volume}
+                                addon="ml"
+                                onChangeFunction={this.handleVolumeChange}/>]
+
+
         //rendering list of IngredientInputs
         return (
             <div className="container">
-                <div className="basics item">
-                    <BasicSection volume={this.state.volume} onChangeFunction={this.handleVolumeChange}/>
-                </div>
-                <div className="ingredients item">
-                    {ingredientInputs}
-                </div>
-
-                {/*<br/>*/}
-                <div className="output item">
-                    {ingredientOutputs}
+                <div className="row">
+                    <div className="col-sm-5 inputGroup">
+                        {/*<InputSection/>*/}
+                        <div id="accordion" role="tablist">
+                            <AccordionMember
+                                collapseId="collapse1"
+                                cardName="Batch Info"
+                                content={batchInput}/>
+                            <AccordionMember
+                                collapseId="collapse2"
+                                cardName="Nic Info"
+                                content="This is some more content"/>
+                            <AccordionMember
+                                collapseId="collapse3"
+                                cardName="Flavour Info"
+                                content={ingredientInputs}/>
+                        </div>
+                    </div>
+                    <div className="col-sm outputGroup">
+                        <OutputCard
+                            cardLabel="Recipe Amounts"
+                            content={ingredientOutputs}/>
+                    </div>
                 </div>
             </div>
         );
     }
 }
 
+{/*<div className="container">*/}
+    {/*<div className="basics item">*/}
+        {/*<BasicSection volume={this.state.volume} onChangeFunction={this.handleVolumeChange}/>*/}
+    {/*</div>*/}
+    {/*<div className="ingredients item">*/}
+        {/*{ingredientInputs}*/}
+    {/*</div>*/}
+    {/*/!*<br/>*!/*/}
+    {/*<div className="output item">*/}
+        {/*{ingredientOutputs}*/}
+    {/*</div>*/}
+{/*</div>*/}
+
 class IngredientInput extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            percentage: "",
-        }
     }
 
     render() {
         return (
-          <fieldset>
-              <legend>Flavour {this.props.flavourNumber} Input</legend>
-              <input
-                  className="inputBox percentageInput"
-                  placeholder ={this.props.percentage}
-                  onChange={this.props.onChangeFunction.bind(this, this.props.flavourNumber)}/>
-          </fieldset>
+            <div className="form-group row">
+                <label htmlFor={this.props.inputId} className="col-sm-5 col-form-label">{this.props.label}</label>
+                <div className="col-sm input-group">
+                  <input
+                      type="number"
+                      className="form-control"
+                      id={this.props.inputId}
+                      placeholder={this.props.placeholder}
+                      onChange={this.props.onChangeFunction.bind(this, this.props.flavourNumber)}/>
+                      <div className="input-group-append">
+                        <span className="input-group-text">{this.props.addon}</span>
+                      </div>
+                </div>
+              </div>
         );
     }
 }
+
+class InputComponent extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+
+    render() {
+        return(
+            <div className="form-group row">
+                <label htmlFor={this.props.inputId} className="col-sm-5 col-form-label">{this.props.label}</label>
+                <div className="col-sm input-group">
+                  <input
+                      type="number"
+                      className="form-control"
+                      id={this.props.inputId}
+                      placeholder={this.props.placeholder}
+                      onChange={this.props.onChangeFunction}/>
+                      <div className="input-group-append">
+                        <span className="input-group-text">{this.props.addon}</span>
+                      </div>
+                </div>
+              </div>
+        )
+    }
+}
+
 
 class IngredientOutput extends React.Component {
     render() {
         const outputVolume = (this.props.volume * this.props.percentage) / 100;
         return(
             <fieldset>
-              <legend>Flavour {this.props.flavourNumber} Output</legend>
+              <legend>Flavour {this.props.flavourNumber}</legend>
               {outputVolume} ml
           </fieldset>
         )
@@ -133,14 +191,32 @@ class BasicSection extends React.Component {
     }
 }
 
+class OutputCard extends React.Component {
+    render() {
+        return(
+            <div className="card">
+                <div className="card-header" role="tab">
+                  <h6 className="mb-0">
+                      {this.props.cardLabel}
+                  </h6>
+                </div>
+                  <div className="card-body">
+                      {this.props.content}
+                  </div>
+              </div>
+        )
+    }
+}
+
+
 class AccordionMember extends React.Component {
     constructor(props) {
     super(props)
   }
     render() {
         return(
-            <div className="card inputCard">
-                <div className="card-header" role="tab" id="headingOne">
+            <div className="card">
+                <div className="card-header" role="tab">
                   <h6 className="mb-0">
                     <a data-toggle="collapse" href={"#" + this.props.collapseId} role="button" aria-expanded="true" aria-controls={this.props.collapseId}>
                         {this.props.cardName}
