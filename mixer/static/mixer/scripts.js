@@ -3,18 +3,14 @@ class App extends React.Component {
         return (
             // eventually make ingredients change dynamically based on user input - add/remove
             <div className="container">
-                <div className="leftSection">
-                    <InputCard
-                        cardHeader="Basics"
-                        content="Lorum ipsum etc etc"/>
-                    <InputCard
-                        cardHeader="Nicotine"
-                        content="Lorum ipsum etc etc"/>
-                    <InputCard
-                        cardHeader="Flavours"
-                        content="Lorum ipsum etc etc"/>
-                </div>
-                <div className="rightSection">
+                <div className="row">
+                    <div className="col-sm-5 inputGroup">
+                        {/*<InputSection/>*/}
+                        <Accordion/>
+                    </div>
+                    <div className="col-sm outputGroup">
+                        Right side
+                    </div>
                 </div>
             </div>
         )
@@ -137,33 +133,47 @@ class BasicSection extends React.Component {
     }
 }
 
-class InputCard extends React.Component {
+class AccordionMember extends React.Component {
     constructor(props) {
     super(props)
-    this.toggleExpand = this.toggleExpand.bind(this);
-    this.state = {
-      expanded: true,
-    }
   }
-
-  toggleExpand() {
-        this.setState({expanded: !this.state.expanded});
-  }
-
     render() {
         return(
-            <div className="inputCard">
+            <div className="card inputCard">
+                <div className="card-header" role="tab" id="headingOne">
+                  <h6 className="mb-0">
+                    <a data-toggle="collapse" href={"#" + this.props.collapseId} role="button" aria-expanded="true" aria-controls={this.props.collapseId}>
+                        {this.props.cardName}
+                    </a>
+                  </h6>
+                </div>
 
-                <div className="tab" onClick={this.toggleExpand}>
-                    {this.props.cardHeader}
-                    <input id="toggle" type="checkbox"/>
-                    <label for="toggle"></label>
+                <div id={this.props.collapseId} className="collapse show" role="tabpanel" aria-labelledby="headingOne">
+                  <div className="card-body">
+                      {this.props.content}
+                  </div>
                 </div>
-                <div id="expand">
-                    <div className={this.state.expanded ? "expanded inputContent" : "collapsed inputContent"}>
-                        {this.props.content}
-                    </div>
-                </div>
+              </div>
+        )
+    }
+}
+
+class Accordion extends React.Component {
+    render() {
+        return(
+            <div id="accordion" role="tablist">
+                <AccordionMember
+                    collapseId="collapse1"
+                    cardName="Batch Info"
+                    content="This is some content"/>
+                <AccordionMember
+                    collapseId="collapse2"
+                    cardName="Nic Info"
+                    content="This is some more content"/>
+                <AccordionMember
+                    collapseId="collapse3"
+                    cardName="Flavour Info"
+                    content="This is even more content"/>
             </div>
         )
     }
