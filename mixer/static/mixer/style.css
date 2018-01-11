@@ -1,50 +1,99 @@
 body {
   padding-top: 40px;
-  background: #f5f7f8;
+  /*background: #f5f7f8;*/
+    font-family: "Helvetica Neue";
 }
 
 .container {
   display: grid;
   max-width: 800px;
-  height: 600px;
+  height: 500px;
   margin: auto;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 2fr 3fr;
   grid-column-gap: 10px;
-  grid-template-rows: 150px 1fr;
-  grid-row-gap: 10px;
   grid-template-areas:
-    "a a"
-    "b c"
+    "a b"
   ;
 
 }
 
-/* items */
-
-.container div {
-  /*color: white;*/
-  font-size: 20px;
-  padding: 20px;
-  }
-
-/* specific item styles */
-
-.item {
-  /*border: 1px solid blue;*/
-  /*border-radius: 25px;*/
+.leftSection {
+  /*grid-area: a;*/
+  background-color: red;
+    /*display: grid;*/
+    /*grid-template-rows: repeat(3, 1fr);*/
+    /*grid-row-gap: 10px;*/
+    /*grid-template-areas:*/
+        /*"c"*/
+        /*"d"*/
+        /*"e"*/
+    /*;*/
 }
 
-.basics {
-  /*background: #b03532;*/
-  grid-area: a;
-}
-.ingredients {
-  /*background: #33a8a5;*/
+.rightSection {
   grid-area: b;
+  background-color: blue;
 }
+
+
+.tab {
+    border-radius: 5px 5px 0px 0px;
+    padding: 10px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    font-weight: bold;
+    background-color: #f1f1f1;
+}
+
+
+.inputCard {
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.inputContent {
+    padding: 10px;
+    border-radius: 0px 0px 5px 5px;
+    background-color: navajowhite;
+    /*height: 100px;*/
+    /*-webkit-transition: height 0.s;*/
+    transition: height 0.5s;
+    /*transition: overflow 0.5s;*/
+}
+
+.inputContent.expanded {
+   background-color: green;
+        /*visibility: visible;*/
+
+    height: 100px;
+}
+
+.inputContent.collapsed {
+        /*visibility: hidden;*/
+    overflow: hidden;
+   background-color: orange;
+    height: 0px;
+}
+
+
+
+/*.batchDetails {*/
+  /*!*background: #b03532;*!*/
+  /*grid-area: c;*/
+/*}*/
+
+/*.baseNic {*/
+  /*grid-area: d;*/
+
+/*}*/
+
+/*.ingredients {*/
+  /*!*background: #33a8a5;*!*/
+  /*grid-area: e;*/
+/*}*/
+
 .output {
   /*background: #30997a;*/
-  grid-area: c;
 }
 
 
@@ -67,6 +116,7 @@ body {
 
 
 
+
 /*.row {*/
   /*!*min-height: 500px;*!*/
 /*}*/
@@ -86,6 +136,61 @@ body {
 /*.container {*/
   /*margin-top: 20px;*/
 /*}*/
+
+
+
+
+
+
+
+
+/*input {*/
+  /*!*display: none;*!*/
+  /*!*visibility: hidden;*!*/
+/*}*/
+
+/*label {*/
+  /*display: block;*/
+  /*!*padding: 0.5em;*!*/
+  /*text-align: right;*/
+  /*!*border-bottom: 1px solid #CCC;*!*/
+  /*color: #666;*/
+/*}*/
+
+/*label:hover {*/
+  /*color: #000;*/
+/*}*/
+/*label::before {*/
+  /*font-family: Consolas, monaco, monospace;*/
+  /*font-weight: bold;*/
+  /*font-size: 15px;*/
+  /*!*content: "+";*!*/
+  /*vertical-align: text-top;*/
+  /*display: inline-block;*/
+  /*width: 20px;*/
+  /*height: 20px;*/
+  /*margin-right: 3px;*/
+  /*background: radial-gradient(ellipse at center, #CCC 50%, transparent 50%);*/
+/*}*/
+/*#expand {*/
+  /*height: 0px;*/
+  /*overflow: hidden;*/
+  /*transition: height 0.5s;*/
+  /*background: url(http://placekitten.com/g/600/300);*/
+  /*color: #FFF;*/
+/*}*/
+
+/*#toggle:checked ~ #expand {*/
+  /*height: 250px;*/
+/*}*/
+/*#toggle:checked ~ label::before {*/
+  /*!*content: "-";*!*/
+/*}*/
+
+
+
+
+
 
 
 

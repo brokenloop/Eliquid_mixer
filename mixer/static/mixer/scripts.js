@@ -2,8 +2,20 @@ class App extends React.Component {
     render() {
         return (
             // eventually make ingredients change dynamically based on user input - add/remove
-            <div>
-                {/*<Recipe ingredients={3} />*/}
+            <div className="container">
+                <div className="leftSection">
+                    <InputCard
+                        cardHeader="Basics"
+                        content="Lorum ipsum etc etc"/>
+                    <InputCard
+                        cardHeader="Nicotine"
+                        content="Lorum ipsum etc etc"/>
+                    <InputCard
+                        cardHeader="Flavours"
+                        content="Lorum ipsum etc etc"/>
+                </div>
+                <div className="rightSection">
+                </div>
             </div>
         )
     }
@@ -59,7 +71,7 @@ class Recipe extends React.Component {
 
         //rendering list of IngredientInputs
         return (
-            <div>
+            <div className="container">
                 <div className="basics item">
                     <BasicSection volume={this.state.volume} onChangeFunction={this.handleVolumeChange}/>
                 </div>
@@ -120,6 +132,38 @@ class BasicSection extends React.Component {
                     placeholder={this.props.volume}
                     onChange={this.props.onChangeFunction}/>
               </div>
+            </div>
+        )
+    }
+}
+
+class InputCard extends React.Component {
+    constructor(props) {
+    super(props)
+    this.toggleExpand = this.toggleExpand.bind(this);
+    this.state = {
+      expanded: true,
+    }
+  }
+
+  toggleExpand() {
+        this.setState({expanded: !this.state.expanded});
+  }
+
+    render() {
+        return(
+            <div className="inputCard">
+
+                <div className="tab" onClick={this.toggleExpand}>
+                    {this.props.cardHeader}
+                    <input id="toggle" type="checkbox"/>
+                    <label for="toggle"></label>
+                </div>
+                <div id="expand">
+                    <div className={this.state.expanded ? "expanded inputContent" : "collapsed inputContent"}>
+                        {this.props.content}
+                    </div>
+                </div>
             </div>
         )
     }
