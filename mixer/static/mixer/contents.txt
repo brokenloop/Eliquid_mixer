@@ -1,0 +1,20 @@
+Recipe Name
+
+-Details
+Ratio
+Desired mg
+Volume
+
+-Nic Details
+mg/ml
+ratio
+
+-Flavours
+Each flavour and percentage
+
+Output
+-Nic
+-VG
+-PG
+-Flavours
+
