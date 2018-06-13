@@ -1,0 +1,32 @@
+button:focus {outline:0;}
+
+.button {
+  padding: 5px;
+  border-radius: 3px;
+  background-color: #f2f2f2;
+  color: #777;
+  font-size: 1em;
+  align-self: right;
+}
+
+.remove {
+  /* background-color: #ffb3b3; */
+  /* background-color: #777; */
+  position: relative;
+  left: 10px;
+  /* margin-left: 10px; */
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.add {
+  margin-left: 7px;
+}
+
+.button.remove:hover {
+  background-color: #ffcccc;
+}
+
+.button:hover {
+  background-color: #e6e6e6;
+}
