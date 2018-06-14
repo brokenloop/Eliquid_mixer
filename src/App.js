@@ -28,14 +28,14 @@ class App extends Component {
     };
   }
 
-  addFlavour(event) {
-    var newNumFlavours = this.state.numFlavours;
-    var flavours = this.state.flavours.slice(0);
+  addFlavour() {
+      let newNumFlavours = this.state.numFlavours;
+      let flavours = this.state.flavours.slice(0);
     flavours.push({
       key: newNumFlavours,
       label: "New Flavour",
       percentage: 0
-    })
+    });
     this.setState({
       numFlavours: newNumFlavours + 1,
       flavours: flavours
@@ -43,8 +43,8 @@ class App extends Component {
   }
 
   removeFlavour(key, event) {
-    var flavours = this.state.flavours.slice(0);
-    for (var i = 0; i < flavours.length; i++) {
+      let flavours = this.state.flavours.slice(0);
+    for (let i = 0; i < flavours.length; i++) {
       if (flavours[i].key === key) {
         flavours.splice(i, 1);
       }
@@ -65,8 +65,8 @@ class App extends Component {
   }
 
   handleFlavourChange(key, event) {
-    var flavours = this.state.flavours.slice(0);
-    for (var i = 0; i < flavours.length; i++) {
+      let flavours = this.state.flavours.slice(0);
+    for (let i = 0; i < flavours.length; i++) {
       if (flavours[i].key === key) {
         flavours[i][event.target.name] = event.target.value;
       }
@@ -79,8 +79,8 @@ class App extends Component {
   // This is horrible and should be changed immediately
   // name and name2 etc. Shameful
   handleLabelChange(key, event) {
-    var flavours = this.state.flavours.slice(0);
-    for (var i = 0; i < flavours.length; i++) {
+      let flavours = this.state.flavours.slice(0);
+    for (let i = 0; i < flavours.length; i++) {
       if (flavours[i].key === key) {
         flavours[i]["label"] = event.target.value;
       }
@@ -91,7 +91,7 @@ class App extends Component {
   }
 
   calculateVolume(percentage) {
-    var volume = this.state.batchVolume * (percentage / 100);
+      let volume = this.state.batchVolume * (percentage / 100);
     volume = Math.round(volume * 100) / 100;
     // volume = (volume > batchVolume) ? batchVolume : volume;
     return volume;
@@ -102,18 +102,18 @@ class App extends Component {
   }
 
   calculateNicVolume() {
-    var nicVolume = (this.state.batchNic / this.state.baseNic) * this.state.batchVolume;
+      let nicVolume = (this.state.batchNic / this.state.baseNic) * this.state.batchVolume;
     nicVolume = Math.round(nicVolume * 100) / 100;
     return nicVolume;
   }
 
   calculateBaseNicWeight() {
-    var nicPercent = this.state.baseNic / 100;
-    var blendPercent = 100 - nicPercent;
-    var vgPercent = this.state.baseRatio;
-    var pgPercent = blendPercent - vgPercent;
+    let nicPercent = this.state.baseNic / 100;
+    let blendPercent = 100 - nicPercent;
+    let vgPercent = this.state.baseRatio;
+    let pgPercent = blendPercent - vgPercent;
 
-    var nicWeight = (nicPercent * this.state.ingredients.nic) +
+    let nicWeight = (nicPercent * this.state.ingredients.nic) +
                     (vgPercent * this.state.ingredients.vg) +
                     (pgPercent * this.state.ingredients.pg);
 
@@ -122,39 +122,39 @@ class App extends Component {
   }
 
   calculateBatchNicWeight() {
-    var batchNicWeight = this.calculateBaseNicWeight() * this.calculateNicVolume();
+    let batchNicWeight = this.calculateBaseNicWeight() * this.calculateNicVolume();
     batchNicWeight = Math.round(batchNicWeight * 100) / 100;
     return batchNicWeight;
   }
 
   calculateVGVolume() {
-    var VGVolume = this.state.batchVolume * this.state.batchRatio;
+    let VGVolume = this.state.batchVolume * this.state.batchRatio;
     VGVolume = Math.round(VGVolume * 100) / 10000;
     return VGVolume;
   }
 
   calculateVGWeight() {
-    var VGVolume = this.calculateVGVolume();
-    var VGWeight = VGVolume * this.state.ingredients.vg;
+      let VGVolume = this.calculateVGVolume();
+      let VGWeight = VGVolume * this.state.ingredients.vg;
     VGWeight = Math.round(VGWeight * 100) / 100;
     return VGWeight;
   }
 
   calculatePGVolume() {
-    var volumeTaken = 0;
+      let volumeTaken = 0;
     volumeTaken += this.calculateNicVolume();
     volumeTaken += this.calculateVGVolume();
-    for (var i = 0; i < this.state.flavours.length; i++) {
+    for (let i = 0; i < this.state.flavours.length; i++) {
       volumeTaken += this.calculateVolume(this.state.flavours[i].percentage);
     }
-    var PGVolume = this.state.batchVolume - volumeTaken;
+      let PGVolume = this.state.batchVolume - volumeTaken;
     PGVolume = Math.round(PGVolume * 100) / 100;
     return PGVolume;
   }
 
   calculatePGWeight() {
-    var PGVolume = this.calculatePGVolume();
-    var PGWeight = PGVolume * this.state.ingredients.pg;
+      let PGVolume = this.calculatePGVolume();
+      let PGWeight = PGVolume * this.state.ingredients.pg;
     PGWeight = Math.round(PGWeight * 100) / 100;
     return PGWeight;
   }
@@ -162,10 +162,10 @@ class App extends Component {
 
 
   render() {
-    var flavourInputList = [];
-    for (var i = 0; i < this.state.flavours.length; i++) {
-      var flavourObject = this.state.flavours[i];
-      var flavourComponent = <InputField
+      let flavourInputList = [];
+    for (let i = 0; i < this.state.flavours.length; i++) {
+        let flavourObject = this.state.flavours[i];
+        let flavourComponent = <InputField
         key={flavourObject.key}
         inputId={flavourObject.key}
         name={"percentage"}
@@ -179,15 +179,15 @@ class App extends Component {
       flavourInputList.push(flavourComponent);
     }
 
-    var flavourOutputList = [];
-    for (var i = 0; i < this.state.flavours.length; i++) {
-      var flavourObject = this.state.flavours[i];
-      var volume = this.calculateVolume(flavourObject.percentage)
-      var outputComponent = <TableRow
+      let flavourOutputList = [];
+    for (let i = 0; i < this.state.flavours.length; i++) {
+        let flavourObject = this.state.flavours[i];
+        let volume = this.calculateVolume(flavourObject.percentage);
+        let outputComponent = <TableRow
         key={flavourObject.key}
         ingredient={flavourObject.label}
         volume={volume}
-        weight={this.calculateFlavourWeight(volume)}/>
+        weight={this.calculateFlavourWeight(volume)}/>;
       flavourOutputList.push(outputComponent);
     }
 
@@ -217,53 +217,101 @@ class App extends Component {
                   symbol="%VG"
                   placeholder={this.state.batchRatio}/>
           		</Card>
+
+                <Card cardHeader="Nicotine Base">
+                    <InputField
+                        label="Nicotine"
+                        name="baseNic"
+                        onChange={this.handleInputChange.bind(this)}
+                        symbol="mg"
+                        placeholder={this.state.baseNic}/>
+                    <InputField
+                        label="VG Ratio"
+                        name="baseRatio"
+                        onChange={this.handleInputChange.bind(this)}
+                        symbol="%VG"
+                        placeholder={this.state.baseRatio}/>
+                </Card>
+
+                <Card cardHeader="Flavours">
+                    {flavourInputList}
+                    <Button onClick={this.addFlavour.bind(this)} action="add">+ Add Flavour</Button>
+                </Card>
+
+
+                <Card cardHeader="Output">
+                    <Table>
+                        <TableRow
+                            ingredient="Nicotine Base"
+                            volume={this.calculateNicVolume()}
+                            weight={this.calculateBatchNicWeight()}/>
+                        <TableRow
+                            ingredient="PG"
+                            volume={this.calculatePGVolume()}
+                            weight={this.calculatePGVolume()}/>
+                        <TableRow
+                            ingredient="VG"
+                            volume={this.calculateVGVolume()}
+                            weight={this.calculateVGWeight()}/>
+                        {flavourOutputList}
+                    </Table>
+                </Card>
+
+
+
+
+
+
+
+
+
             </div>
             <div className="rightSection">
-              <Card cardHeader="Nicotine Base">
-                <InputField
-                  label="Nicotine"
-                  name="baseNic"
-                  onChange={this.handleInputChange.bind(this)}
-                  symbol="mg"
-                  placeholder={this.state.baseNic}/>
-                <InputField
-                  label="VG Ratio"
-                  name="baseRatio"
-                  onChange={this.handleInputChange.bind(this)}
-                  symbol="%VG"
-                  placeholder={this.state.baseRatio}/>
-              </Card>
+              {/*<Card cardHeader="Nicotine Base">*/}
+                {/*<InputField*/}
+                  {/*label="Nicotine"*/}
+                  {/*name="baseNic"*/}
+                  {/*onChange={this.handleInputChange.bind(this)}*/}
+                  {/*symbol="mg"*/}
+                  {/*placeholder={this.state.baseNic}/>*/}
+                {/*<InputField*/}
+                  {/*label="VG Ratio"*/}
+                  {/*name="baseRatio"*/}
+                  {/*onChange={this.handleInputChange.bind(this)}*/}
+                  {/*symbol="%VG"*/}
+                  {/*placeholder={this.state.baseRatio}/>*/}
+              {/*</Card>*/}
             </div>
           </div>
           <div className="bottomSection">
           	<div className="leftSection">
-              <Card cardHeader="Flavours">
-                {flavourInputList}
-                <Button onClick={this.addFlavour.bind(this)} action="add">+ Add Flavour</Button>
-              </Card>
+              {/*<Card cardHeader="Flavours">*/}
+                {/*{flavourInputList}*/}
+                {/*<Button onClick={this.addFlavour.bind(this)} action="add">+ Add Flavour</Button>*/}
+              {/*</Card>*/}
             </div>
             <div className="rightSection">
-          		<Card cardHeader="Output">
-                <Table>
-                  <TableRow
-                    ingredient="Nicotine Base"
-                    volume={this.calculateNicVolume()}
-                    weight={this.calculateBatchNicWeight()}/>
-                  <TableRow
-                    ingredient="PG"
-                    volume={this.calculatePGVolume()}
-                    weight={this.calculatePGVolume()}/>
-                  <TableRow
-                    ingredient="VG"
-                    volume={this.calculateVGVolume()}
-                    weight={this.calculateVGWeight()}/>
-                  {flavourOutputList}
-                </Table>
-              </Card>
+          		{/*<Card cardHeader="Output">*/}
+                {/*<Table>*/}
+                  {/*<TableRow*/}
+                    {/*ingredient="Nicotine Base"*/}
+                    {/*volume={this.calculateNicVolume()}*/}
+                    {/*weight={this.calculateBatchNicWeight()}/>*/}
+                  {/*<TableRow*/}
+                    {/*ingredient="PG"*/}
+                    {/*volume={this.calculatePGVolume()}*/}
+                    {/*weight={this.calculatePGVolume()}/>*/}
+                  {/*<TableRow*/}
+                    {/*ingredient="VG"*/}
+                    {/*volume={this.calculateVGVolume()}*/}
+                    {/*weight={this.calculateVGWeight()}/>*/}
+                  {/*{flavourOutputList}*/}
+                {/*</Table>*/}
+              {/*</Card>*/}
           	</div>
           </div>
         </div>
-        <Footer />
+        
       </div>
     );
   }
