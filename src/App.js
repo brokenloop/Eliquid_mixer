@@ -184,12 +184,17 @@ class App extends Component {
         let flavourObject = this.state.flavours[i];
         let volume = this.calculateVolume(flavourObject.percentage);
         let outputComponent = <TableRow
-        key={flavourObject.key}
-        ingredient={flavourObject.label}
-        volume={volume}
-        weight={this.calculateFlavourWeight(volume)}/>;
+          key={flavourObject.key}
+          ingredient={flavourObject.label}
+          volume={volume}
+          weight={this.calculateFlavourWeight(volume)}/>;
       flavourOutputList.push(outputComponent);
     }
+
+    let output = {
+
+    };
+
 
     return (
       <div className="App">
