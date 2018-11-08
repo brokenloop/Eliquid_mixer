@@ -6,8 +6,11 @@ class InputField extends Component {
   render() {
   	var labelField, removeButton, onChange;
   	if (this.props.editable) {
+      console.log("InputID");
+      console.log(this.props.inputId);
   		labelField = <label>
                     <input
+
                       placeholder={this.props.label}
                       className="editableLabel"
                       onChange={this.props.onLabelChange.bind(this, this.props.inputId)}>
@@ -23,13 +26,6 @@ class InputField extends Component {
       labelField = <label> {this.props.label} </label>;
       onChange = this.props.onChange;
     }
-
-    // var onChange;
-    // if (this.props.inputId) {
-    //
-    // } else {
-    //   onChange = this.props.onChange;
-    // }
 
     return (
       <div className="InputField form-group">

@@ -1,0 +1,39 @@
+ .Calculator {
+  text-align: center;
+  margin-top: 10px;
+  height: 100%;
+}
+
+.container {
+  display: grid;
+  max-width: 800px;
+  min-height: 500px;
+  margin: auto;
+  /*grid-template-columns: 2fr 2fr;*/
+  /*grid-template-areas:*/
+    /*"a b"*/
+  /*;*/
+  padding-bottom: 8px;
+  border: 8px;
+
+}
+
+.warning {
+  color: red;
+}
+
+/*.topSection  {*/
+/*}*/
+
+/*.leftSection, .rightSection {*/
+    /*padding: 8px;*/
+
+/*}*/
+
+/*.leftSection {*/
+  /*grid-area: a;*/
+/*}*/
+
+/*.rightSection {*/
+  /*grid-area: b;*/
+/*}*/
