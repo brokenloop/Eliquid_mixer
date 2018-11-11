@@ -11,7 +11,11 @@ import TableRow from './TableRow';
 
 require('create-react-class');
 
+
 class Calculator extends Component {
+
+  
+
   constructor() {
     super();
     this.state = {
@@ -22,13 +26,13 @@ class Calculator extends Component {
       batchRatio: 70,
       baseNic: 100,
       baseRatio: 0,
-      weights: {
-        nic: 1.01,
-        vg: 1.26,
-        pg: 1.038,
-        flavour: 1.0
-      },
       validRecipe: true
+    };
+    this.weights = {
+      nic: 1.01,
+      vg: 1.26,
+      pg: 1.038,
+      flavour: 1.0
     };
   }
 
@@ -111,9 +115,9 @@ class Calculator extends Component {
     let vgPercent = this.state.baseRatio;
     let pgPercent = blendPercent - vgPercent;
 
-    let nicWeight = (nicPercent * this.state.weights.nic) +
-                    (vgPercent * this.state.weights.vg) +
-                    (pgPercent * this.state.weights.pg);
+    let nicWeight = (nicPercent * this.weights.nic) +
+                    (vgPercent * this.weights.vg) +
+                    (pgPercent * this.weights.pg);
 
     nicWeight = Math.round(nicWeight * 100) / 10000;
     return nicWeight;
@@ -138,7 +142,7 @@ class Calculator extends Component {
 
   calculateVGWeight() {
     let VGVolume = this.calculateVGVolume();
-    let VGWeight = VGVolume * this.state.weights.vg;
+    let VGWeight = VGVolume * this.weights.vg;
     VGWeight = Math.round(VGWeight * 100) / 100;
     return VGWeight;
   }
@@ -163,7 +167,7 @@ class Calculator extends Component {
 
   calculatePGWeight() {
     let PGVolume = this.calculatePGVolume();
-    let PGWeight = PGVolume * this.state.weights.pg;
+    let PGWeight = PGVolume * this.weights.pg;
     PGWeight = Math.round(PGWeight * 100) / 100;
     return PGWeight;
   }
@@ -238,6 +242,7 @@ class Calculator extends Component {
                   </Card>
                 </div>
               )}
+              this.weights
               <Card cardHeader="Batch Info">
           			<InputField
                   label="Volume"

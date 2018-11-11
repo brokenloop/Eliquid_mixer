@@ -23,3 +23,5 @@ chrome-user-data
 .vscode
 *.swp
 *.swo
+mongodb_credentials.txt
+secret.py
