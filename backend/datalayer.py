@@ -1,5 +1,6 @@
 from models import Recipe, Flavour
 from base import Session, engine, Base
+from sqlalchemy import func
 
 def insert_recipe():
 	session = Session()
@@ -8,8 +9,8 @@ def insert_recipe():
 	testflav2 = Flavour(name="Orange", volume=2)
 
 	test_recipe = Recipe(
-		name = "Test recipe1",
-		version = 1,
+		name = "Recipe3",
+		version = 3,
 		batchvolume = 30,
 		batchnic = 6,
 		batchratio = 70,
@@ -30,9 +31,28 @@ def list_recipes():
 	names = [x for x in query]
 	session.close()
 	return names
-	print(names)
+
+def recipe_by_name(name):
+	session = Session()
+	subquery = session.query(func.max(Recipe.version)).filter(Recipe.name == name)
+	query = session.query(Recipe).filter(Recipe.name == name, Recipe.version == subquery)
+	try:
+		return query.one()
+	except:
+		return None
+	session.close()
+
+def dictify_recipe(recipe):
+	result = recipe.as_dict()
+	result["flavours"] = [x.as_dict() for x in recipe.flavours]
+	result["numflavours"] = len(recipe.flavours)
+	return result
 
 if __name__=="__main__":
-	Base.metadata.create_all(engine)
+	# Base.metadata.create_all(engine)
 	insert_recipe()
-	list_recipes()
+	# list_recipes()
+	recipe = recipe_by_name("Test recipe1")
+	# print(recipe.as_dict())
+	# print([x.as_dict() for x in recipe.flavours])
+	print(dictify_recipe(recipe))

@@ -14,6 +14,9 @@ class Recipe(Base):
 	basenic = Column("basenic", Integer)
 	baseratio = Column("baseratio", Integer)
 	flavours = relationship("Flavour", cascade="all, delete-orphan")
+
+	def as_dict(self):
+		return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 	
 
 class Flavour(Base):
@@ -22,5 +25,8 @@ class Flavour(Base):
 	name = Column("name", String)
 	volume = Column("volume", Integer)
 	recipeid = Column(Integer, ForeignKey('recipes.id'))
+
+	def as_dict(self):
+		return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 		

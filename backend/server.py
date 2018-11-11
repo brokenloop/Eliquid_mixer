@@ -1,7 +1,7 @@
-from flask import Flask
+from flask import Flask, abort
 from flask_cors import CORS
 from bson.json_util import dumps
-from datalayer import *
+import datalayer as db
 import sys
 
 app = Flask(__name__)
@@ -16,13 +16,25 @@ def consoleprint(message):
 def home():
     return "<h1>Distant Reading Archive</h1><p>This site is a prototype API for distant reading of science fiction novels.</p>"
 
+
 @app.route('/recipes', methods=['GET'])
 def recipes():
 	
-	recipes = dumps(list_recipes())
+	recipes = db.list_recipes()
 	consoleprint(recipes) 
-	# recipes = json.dumps()
-	return recipes
+	return dumps(recipes)
+
+
+@app.route('/recipes/<string:name>')
+def recipe_by_name(name):
+	consoleprint(name)
+	recipe = db.recipe_by_name(name)
+	if recipe:
+		recipe_dict = db.dictify_recipe(recipe)
+		return dumps(recipe_dict)
+	else:
+		abort(404)
+	
 
 
 app.run()
