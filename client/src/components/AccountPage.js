@@ -26,7 +26,7 @@ componentDidMount() {
     return (
       <div className="AccountPage">
         <h1>RECIPES HERE</h1>
-        {this.state.recipes[0]["Name"]}
+        {this.state.recipes}
       </div>
     );
   }
