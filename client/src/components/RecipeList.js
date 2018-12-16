@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './RecipeList.css';
 import { Link } from 'react-router-dom';
 import {
   BrowserRouter as Router,
@@ -16,11 +17,13 @@ class RecipeList extends Component {
     if (recipes) {
       for (let i = 0; i < recipes.length; i++) {
         listRecipes.push(
-          <li key = {i} >
-            <Link to={"/Calculator/" + recipes[i]}>
-              {recipes[i]}
+          
+            <Link className="link" to={"/Calculator/" + recipes[i]}>
+              <li key = {i} >
+                {recipes[i]}
+              </li>
             </Link>
-          </li>);
+          );
       }
       return listRecipes;
     }
@@ -30,7 +33,8 @@ class RecipeList extends Component {
   render() {
   	
     return (
-      <div className="RecipeList">
+      <div className="recipeList">
+      <div className="pageTitle">Recipes</div>
         <ul>
           {this.generateList(this.props.recipes)}
         </ul>

@@ -22,6 +22,17 @@
   color: red;
 }
 
+.saveButton {
+  padding: 20px;
+  width: 98%;
+  font-size: 2em;
+  background-color: lightgreen;
+  cursor: pointer;
+  border-radius: 5px;
+  color: #F5F5F5;
+  letter-spacing: 0.15em;
+}
+
 /*.topSection  {*/
 /*}*/
 

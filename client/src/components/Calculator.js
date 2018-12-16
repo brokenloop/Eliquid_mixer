@@ -185,7 +185,7 @@ class Calculator extends Component {
 
   generateFlavourInputList() {
     let flavourInputList = [];
-    for (let i = 0; i < this.state.flavours.length; i++) {
+    for (let i = 0; i < this.state.numFlavours; i++) {
       if (this.state.flavours.hasOwnProperty(i)) {
         let flavourObject = this.state.flavours[i];
         let flavourComponent = <InputField
@@ -207,7 +207,7 @@ class Calculator extends Component {
 
   generateFlavourOutputList() {
     let flavourOutputList = [];
-    for (let i = 0; i < this.state.flavours.length; i++) {
+    for (let i = 0; i < this.state.numFlavours; i++) {
       if (this.state.flavours.hasOwnProperty(i)) {
         let flavourObject = this.state.flavours[i];
         let volume = this.calculateVolume(flavourObject.percentage);
@@ -232,9 +232,9 @@ class Calculator extends Component {
   }
 
   mapResultToRecipe(result) {
-  	let flavours = result.flavours.map((elem) => {
+  	let flavours = result.flavours.map((elem, index) => {
   		return {
-  			key: elem.id,
+  			key: index,
 			label: elem.name,
 			percentage: elem.percentage
   		};
@@ -266,6 +266,8 @@ class Calculator extends Component {
 
 	saveRecipe(url, recipe) {
 		console.log(this.state)
+		let flavours = [];
+		Object.entries(this.state.flavours).forEach(([key, value]) => flavours.push(value))
 		axios.post(this.url + "recipes/name/" + this.state.name, {
 			name: this.state.name,
 			batchvolume: this.state.batchVolume,
@@ -273,7 +275,7 @@ class Calculator extends Component {
 			batchratio: this.state.batchRatio,
 			basenic: this.state.baseNic,
 			baseratio: this.state.baseRatio,
-			flavours: this.state.flavours
+			flavours: flavours
 		});
 	}
 
@@ -357,7 +359,7 @@ class Calculator extends Component {
                   {flavourOutputList}
                 </Table>
               </Card>
-              <button onClick={(e) => this.saveRecipe(this.url, this.state)}>Save Recipe</button>
+              <button className="saveButton" onClick={(e) => this.saveRecipe(this.url, this.state)}>Save Recipe</button>
             </div>
           </div>
         </div>

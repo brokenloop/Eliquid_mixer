@@ -5,17 +5,17 @@
   background-color: cornflowerblue;
 }
 
-ul {
+.navbar ul {
   max-width: 750px;
   margin: auto;
   list-style-type: none;
 }
 
-li {
+.navbar li {
     float: right;
 }
 
- li a {
+.navbar li a {
     display: block;
     color: white;
     text-align: center;
@@ -23,6 +23,6 @@ li {
     text-decoration: none;
 }
 
- li a:hover {
+.navbar li a:hover {
     background-color: #5a86d5;
 }

@@ -1,0 +1,40 @@
+.pageTitle {
+    margin-left: 13px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    font-weight: 400;
+    font-size: 3em;
+    color: #383838;
+}
+
+.recipeList {
+	max-width: 800px;
+  	margin: auto;
+}
+
+.recipeList ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.recipeList li {
+	margin-bottom: 20px;
+	padding: 15px;
+	background-color: white;
+  	border-radius: 5px;
+}
+
+.recipeList li:hover {
+	background-color: #e5e3e3;
+
+}
+
+
+
+.recipeList .link {
+	color: #383838;
+	text-decoration: none;
+	font-size: 2em;
+}
+
