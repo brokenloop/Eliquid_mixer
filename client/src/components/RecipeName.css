@@ -1,0 +1,15 @@
+.recipeName {
+    text-align: left;
+    width: 100%;
+}
+
+.recipeNameInput {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline:none;
+    padding: 20px;
+    font-weight: 400;
+    font-size: 3em;
+    color: #383838;
+}

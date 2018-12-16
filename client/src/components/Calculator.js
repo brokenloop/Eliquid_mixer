@@ -5,7 +5,9 @@ import InputField from './InputField';
 import SliderField from './SliderField';
 import Button from './Button';
 import Table from './Table';
+import axios from 'axios';
 import TableRow from './TableRow';
+import RecipeName from './RecipeName';
 //import Navbar from './Navbar';
 // import Footer from './Footer';
 
@@ -18,15 +20,16 @@ class Calculator extends Component {
 
   constructor() {
     super();
+    this.url = "http://127.0.0.1:5000/";
     this.state = {
-      numFlavours: 0,
+      name: "",
+      //numFlavours: 0,
       flavours: {},
       batchVolume: 100,
       batchNic: 6,
       batchRatio: 70,
       baseNic: 100,
-      baseRatio: 0,
-      validRecipe: true
+      baseRatio: 0
     };
     this.weights = {
       nic: 1.01,
@@ -68,6 +71,14 @@ class Calculator extends Component {
     this.setState({
       [name]: value
     });
+  }
+
+  handleRecipeNameChange(event) {
+
+  	const name = event.target.value;
+  	this.setState({
+  		name: name
+  	})
   }
 
   handleSliderChange(value, name) {
@@ -157,7 +168,7 @@ class Calculator extends Component {
     let nicPGVolume = this.calculateNicVolume() * (100 - this.state.baseRatio) / 100;
     volumeTaken += nicPGVolume;
     // volumeTaken += this.calculateVGVolume();
-    for (let i = 0; i < this.state.numFlavours; i++) {
+    for (let i = 0; i < this.state.flavours.length; i++) {
       volumeTaken += this.calculateVolume(this.state.flavours[i].percentage);
     }
     let PGVolume = desiredPGVolume - volumeTaken;
@@ -174,7 +185,7 @@ class Calculator extends Component {
 
   generateFlavourInputList() {
     let flavourInputList = [];
-    for (let i = 0; i < this.state.numFlavours; i++) {
+    for (let i = 0; i < this.state.flavours.length; i++) {
       if (this.state.flavours.hasOwnProperty(i)) {
         let flavourObject = this.state.flavours[i];
         let flavourComponent = <InputField
@@ -196,7 +207,7 @@ class Calculator extends Component {
 
   generateFlavourOutputList() {
     let flavourOutputList = [];
-    for (let i = 0; i < this.state.numFlavours; i++) {
+    for (let i = 0; i < this.state.flavours.length; i++) {
       if (this.state.flavours.hasOwnProperty(i)) {
         let flavourObject = this.state.flavours[i];
         let volume = this.calculateVolume(flavourObject.percentage);
@@ -213,13 +224,62 @@ class Calculator extends Component {
 
   validateOutput() {
     let result = (this.calculatePGVolume() >= 0 && this.calculateVGVolume() >= 0);
-    console.log(result);
     return result;
       // alert("Invalid recipe! Please review your ingredient ratios.");
       // this.setState({
       //   validRecipe: false
       // });
   }
+
+  mapResultToRecipe(result) {
+  	let flavours = result.flavours.map((elem) => {
+  		return {
+  			key: elem.id,
+			label: elem.name,
+			percentage: elem.percentage
+  		};
+  	});
+  	var recipe = {
+  		name: result.name,
+  		numFlavours: result.flavours.length,
+		flavours: flavours,
+		batchVolume: result.batchvolume,
+		batchNic: result.batchnic,
+		batchRatio: result.batchratio,
+		baseNic: result.basenic,
+		baseRatio: result.baseratio
+  	}
+  	return recipe;
+  }
+
+	loadRecipe() {
+		let recipeName = this.props.match.params.recipename;
+		
+		if (typeof recipeName !== "undefined") {
+		   axios.get(this.url + "recipes/name/" + recipeName)
+			.then(res => {
+				const recipe = res.data;
+				this.setState(this.mapResultToRecipe(recipe));
+			});
+		}
+	}
+
+	saveRecipe(url, recipe) {
+		console.log(this.state)
+		axios.post(this.url + "recipes/name/" + this.state.name, {
+			name: this.state.name,
+			batchvolume: this.state.batchVolume,
+			batchnic: this.state.batchNic,
+			batchratio: this.state.batchRatio,
+			basenic: this.state.baseNic,
+			baseratio: this.state.baseRatio,
+			flavours: this.state.flavours
+		});
+	}
+
+  	componentDidMount() {
+  		this.loadRecipe();
+	}
 
 
 
@@ -242,7 +302,7 @@ class Calculator extends Component {
                   </Card>
                 </div>
               )}
-              this.weights
+              <RecipeName onChange={this.handleRecipeNameChange.bind(this)} name={this.state.name}/>
               <Card cardHeader="Batch Info">
           			<InputField
                   label="Volume"
@@ -297,6 +357,7 @@ class Calculator extends Component {
                   {flavourOutputList}
                 </Table>
               </Card>
+              <button onClick={(e) => this.saveRecipe(this.url, this.state)}>Save Recipe</button>
             </div>
           </div>
         </div>

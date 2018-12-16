@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import RecipeList from './RecipeList';
 
-class AccountPage extends Component {
+class RecipePage extends Component {
 
 constructor() {
     super();
-    this.url = "http://127.0.0.1:5000/"
+    this.url = "http://127.0.0.1:5000/";
     this.state = {
       recipes: []
     };
@@ -24,12 +25,11 @@ componentDidMount() {
   render() {
   	
     return (
-      <div className="AccountPage">
-        <h1>RECIPES HERE</h1>
-        {this.state.recipes}
+      <div className="RecipePage">
+        <RecipeList recipes={this.state.recipes} />
       </div>
     );
   }
 }
 
-export default AccountPage;
+export default RecipePage;

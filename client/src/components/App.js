@@ -5,7 +5,7 @@ import './App.css';
 import Navbar from './Navbar';
 import Calculator from './Calculator';
 import LoginPage from './LoginPage';
-import AccountPage from './AccountPage';
+import AccountPage from './RecipePage';
 
 
 import {
@@ -68,7 +68,9 @@ render() {
       <div>
         <Route exact path="/" component={Calculator} />
         <Route path = "/login" component={LoginPage} />
-        <Route path="/account" component={AccountPage} />
+        <Route path="/recipes" component={AccountPage} />
+        <Route path = "/Calculator/:recipename" component={Calculator} />
+
       </div>
       </div>
     </Router>

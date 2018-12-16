@@ -40,7 +40,7 @@ class SliderField extends Component {
             {this.props.placeholder}%
           </div>
           <div className="slider">
-            <Slider min={0} max={100} step={5} defaultValue={this.props.placeholder} handle={handle} onChange={this.handleChange}/>
+            <Slider min={0} max={100} step={5} value={this.props.placeholder} handle={handle} onChange={this.handleChange}/>
           </div>
         </div>
       </div>
