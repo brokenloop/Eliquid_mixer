@@ -33,7 +33,7 @@ class SliderField extends Component {
   render() {
     return (
       <div className="SliderField ">
-      	<label> {this.props.label} </label>
+          <label> {this.props.label} </label>
 
         <div className="sliderFieldInput">
           <div className="value">

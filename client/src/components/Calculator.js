@@ -75,10 +75,10 @@ class Calculator extends Component {
 
   handleRecipeNameChange(event) {
 
-  	const name = event.target.value;
-  	this.setState({
-  		name: name
-  	})
+      const name = event.target.value;
+      this.setState({
+          name: name
+      })
   }
 
   handleSliderChange(value, name) {
@@ -104,7 +104,7 @@ class Calculator extends Component {
   }
 
   calculateVolume(percentage) {
-  	let volume = this.state.batchVolume * (percentage / 100);
+      let volume = this.state.batchVolume * (percentage / 100);
     volume = Math.round(volume * 100) / 100;
     // volume = (volume > batchVolume) ? batchVolume : volume;
     return volume;
@@ -169,9 +169,9 @@ class Calculator extends Component {
     volumeTaken += nicPGVolume;
     //volumeTaken += this.calculateVGVolume();
     for (let i = 0; i < this.state.numFlavours; i++) {
-    	if (this.state.flavours.hasOwnProperty(i)) {
-      		volumeTaken += this.calculateVolume(this.state.flavours[i].percentage);
-    	}
+        if (this.state.flavours.hasOwnProperty(i)) {
+              volumeTaken += this.calculateVolume(this.state.flavours[i].percentage);
+        }
     }
     let PGVolume = desiredPGVolume - volumeTaken;
     PGVolume = Math.round(PGVolume * 100) / 100;
@@ -237,56 +237,56 @@ class Calculator extends Component {
   }
 
   mapResultToRecipe(result) {
-  	let flavours = result.flavours.map((elem, index) => {
-  		return {
-  			key: index,
-			label: elem.name,
-			percentage: elem.percentage
-  		};
-  	});
-  	var recipe = {
-  		name: result.name,
-  		numFlavours: result.flavours.length,
-		flavours: flavours,
-		batchVolume: result.batchvolume,
-		batchNic: result.batchnic,
-		batchRatio: result.batchratio,
-		baseNic: result.basenic,
-		baseRatio: result.baseratio
-  	}
-  	return recipe;
+      let flavours = result.flavours.map((elem, index) => {
+          return {
+              key: index,
+            label: elem.name,
+            percentage: elem.percentage
+          };
+      });
+      var recipe = {
+          name: result.name,
+          numFlavours: result.flavours.length,
+        flavours: flavours,
+        batchVolume: result.batchvolume,
+        batchNic: result.batchnic,
+        batchRatio: result.batchratio,
+        baseNic: result.basenic,
+        baseRatio: result.baseratio
+      }
+      return recipe;
   }
 
-	loadRecipe() {
-		let recipeName = this.props.match.params.recipename;
-		
-		if (typeof recipeName !== "undefined") {
-		   axios.get(this.url + "recipes/name/" + recipeName)
-			.then(res => {
-				const recipe = res.data;
-				this.setState(this.mapResultToRecipe(recipe));
-			});
-		}
-	}
+    loadRecipe() {
+        let recipeName = this.props.match.params.recipename;
+        
+        if (typeof recipeName !== "undefined") {
+           axios.get(this.url + "recipes/name/" + recipeName)
+            .then(res => {
+                const recipe = res.data;
+                this.setState(this.mapResultToRecipe(recipe));
+            });
+        }
+    }
 
-	saveRecipe(url, recipe) {
-		console.log(this.state)
-		let flavours = [];
-		Object.entries(this.state.flavours).forEach(([key, value]) => flavours.push(value))
-		axios.post(this.url + "recipes/name/" + this.state.name, {
-			name: this.state.name,
-			batchvolume: this.state.batchVolume,
-			batchnic: this.state.batchNic,
-			batchratio: this.state.batchRatio,
-			basenic: this.state.baseNic,
-			baseratio: this.state.baseRatio,
-			flavours: flavours
-		});
-	}
+    saveRecipe(url, recipe) {
+        console.log(this.state)
+        let flavours = [];
+        Object.entries(this.state.flavours).forEach(([key, value]) => flavours.push(value))
+        axios.post(this.url + "recipes/name/" + this.state.name, {
+            name: this.state.name,
+            batchvolume: this.state.batchVolume,
+            batchnic: this.state.batchNic,
+            batchratio: this.state.batchRatio,
+            basenic: this.state.baseNic,
+            baseratio: this.state.baseRatio,
+            flavours: flavours
+        });
+    }
 
-  	componentDidMount() {
-  		this.loadRecipe();
-	}
+      componentDidMount() {
+          this.loadRecipe();
+    }
 
 
 
@@ -299,7 +299,7 @@ class Calculator extends Component {
       <div className="Calculator">
         <div className="container">
           <div className="topSection">
-          	<div className="leftSection">
+              <div className="leftSection">
               {valid ? (
                 null 
               ) : (
@@ -311,25 +311,25 @@ class Calculator extends Component {
               )}
               <RecipeName onChange={this.handleRecipeNameChange.bind(this)} name={this.state.name}/>
               <Card cardHeader="Batch Info">
-          			<InputField
+                      <InputField
                   label="Volume"
                   name="batchVolume"
                   onChange={this.handleInputChange.bind(this)}
                   symbol="ml"
                   placeholder={this.state.batchVolume}/>
-          			<InputField
+                      <InputField
                   label="Nicotine"
                   name="batchNic"
                   onChange={this.handleInputChange.bind(this)}
                   symbol="mg"
                   placeholder={this.state.batchNic}/>
-          			<SliderField
+                      <SliderField
                   label="VG Ratio"
                   name="batchRatio"
                   onChange={this.handleSliderChange.bind(this)}
                   symbol="%VG"
                   placeholder={this.state.batchRatio}/>
-          		</Card>
+                  </Card>
               <Card cardHeader="Nicotine Base">
                 <InputField
                   label="Nicotine"

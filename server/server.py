@@ -1,8 +1,10 @@
 from app_setup import app, db
 from flask import Flask, abort, request, jsonify
-from bson.json_util import dumps
+# from bson.json_util import dumps
+from json import dumps
 from models import User
 import datalayer as dl
+import tester as ts
 import sys
 import flask_praetorian 
 
@@ -11,42 +13,42 @@ guard.init_app(app, User)
 
 
 def consoleprint(message):
-	print(message, file=sys.stderr)
+    print(message, file=sys.stderr)
 
 
 @app.route('/recipes', methods=['GET'])
 def recipes():
-	recipes = dl.list_recipes()
-	consoleprint(recipes) 
-	return dumps(recipes)
+    recipes = dl.list_recipes()
+    consoleprint(recipes) 
+    return dumps(recipes)
 
 
 @app.route('/recipes/name/<string:name>', methods=['GET', 'POST'])
 def recipe_by_name(name):
-	if request.method=='POST':
-		consoleprint(request.get_json())
-		recipe = request.get_json()
-		var = dl.insert_recipe(recipe)
-		consoleprint(var)
-		return("OK")
+    if request.method=='POST':
+        consoleprint(request.get_json())
+        recipe = request.get_json()
+        var = dl.insert_recipe(recipe)
+        consoleprint(var)
+        return("OK")
 
-	if request.method == 'GET':
-		recipe = dl.recipe_by_name(name)
-		if recipe:
-			recipe_dict = dl.dictify_recipe(recipe)
-			return dumps(recipe_dict)
-		else:
-			abort(404)
+    if request.method == 'GET':
+        recipe = dl.recipe_by_name(name)
+        if recipe:
+            recipe_dict = dl.dictify_recipe(recipe)
+            return dumps(recipe_dict)
+        else:
+            abort(404)
 
 @app.route('/recipes/id/<int:recipe_id>')
 def recipe_by_id(recipe_id):
-	consoleprint(recipe_id)
-	recipe = dl.recipe_by_id(recipe_id)
-	if recipe:
-		recipe_dict = dl.dictify_recipe(recipe)
-		return dumps(recipe_dict)
-	else:
-		abort(404)
+    consoleprint(recipe_id)
+    recipe = dl.recipe_by_id(recipe_id)
+    if recipe:
+        recipe_dict = dl.dictify_recipe(recipe)
+        return dumps(recipe_dict)
+    else:
+        abort(404)
 
 
 

@@ -1,39 +1,39 @@
 .Card {
-	margin: auto;
-	padding: 8px;
-	text-align: left;
+    margin: auto;
+    padding: 8px;
+    text-align: left;
 }
 
 .header {
-	border-top-right-radius: 3px;
-	border-top-left-radius: 3px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	padding-left: 15px;
-	padding-right: 15px;
-/*	color: DodgerBlue;
-*/	background-color: #F7F7F7; 
-	border-style: solid;
-	border-width: 0.5px;
-	border-color: #d1d2d3;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+/*    color: DodgerBlue;
+*/    background-color: #F7F7F7; 
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: #d1d2d3;
 }
 
 .header:hover {
-	background-color: #e5e3e3;
+    background-color: #e5e3e3;
 }
 
 .body {
-	border-style: solid;
-	border-width: 0.5px;
-	border-color: #d1d2d3;
-	border-top-width: 0px;
-	border-bottom-right-radius: 3px;
-	border-bottom-left-radius: 3px;
-	padding-left: 15px;
-	padding-right: 15px;
-	padding-top: 15px;
-	padding-bottom: 14px;
-	background-color: #FFFFFF;
-  	color: #777;
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: #d1d2d3;
+    border-top-width: 0px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 15px;
+    padding-bottom: 14px;
+    background-color: #FFFFFF;
+      color: #777;
 
 }

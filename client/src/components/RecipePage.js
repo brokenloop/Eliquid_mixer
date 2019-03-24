@@ -14,16 +14,16 @@ constructor() {
 
 
 componentDidMount() {
-	axios.get(this.url + "recipes")
-		.then(res => {
-			const recipes = res.data;
-			console.log(recipes);
-			this.setState({recipes});
-		})
+    axios.get(this.url + "recipes")
+        .then(res => {
+            const recipes = res.data;
+            console.log(recipes);
+            this.setState({recipes});
+        })
 }
 
   render() {
-  	
+      
     return (
       <div className="RecipePage">
         <RecipeList recipes={this.state.recipes} />

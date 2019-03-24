@@ -24,7 +24,7 @@ class RecipeName extends Component {
   render() {
     return (
       <div className="recipeName">
-     	   <input
+            <input
            type="text"
            className="recipeNameInput"
            onChange={this.props.onChange}

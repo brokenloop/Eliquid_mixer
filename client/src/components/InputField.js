@@ -4,11 +4,11 @@ import Button from './Button.js';
 
 class InputField extends Component {
   render() {
-  	var labelField, removeButton, onChange;
-  	if (this.props.editable) {
+      var labelField, removeButton, onChange;
+      if (this.props.editable) {
       console.log("InputID");
       console.log(this.props.inputId);
-  		labelField = <label>
+          labelField = <label>
                     <input
 
                       placeholder={this.props.label}
@@ -22,22 +22,22 @@ class InputField extends Component {
                           x
                     </Button>
       onChange = this.props.onChange.bind(this, this.props.inputId);
-  	} else {
+      } else {
       labelField = <label> {this.props.label} </label>;
       onChange = this.props.onChange;
     }
 
     return (
       <div className="InputField form-group">
-      	{labelField}
-      	<span className="inputSymbol" symbol={this.props.symbol}>
-	     	   <input
+          {labelField}
+          <span className="inputSymbol" symbol={this.props.symbol}>
+                <input
              className="inputFieldInput"
              type={this.props.type}
              onChange={onChange}
              name={this.props.name}
              placeholder={this.props.placeholder}/>
-     	  </span>
+           </span>
         {removeButton}
       </div>
     );

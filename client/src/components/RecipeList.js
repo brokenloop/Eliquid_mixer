@@ -31,7 +31,7 @@ class RecipeList extends Component {
 
 
   render() {
-  	
+      
     return (
       <div className="recipeList">
       <div className="pageTitle">Recipes</div>

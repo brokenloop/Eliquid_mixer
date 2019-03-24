@@ -8,8 +8,8 @@
 }
 
 .recipeList {
-	max-width: 800px;
-  	margin: auto;
+    max-width: 800px;
+      margin: auto;
 }
 
 .recipeList ul {
@@ -19,22 +19,22 @@
 }
 
 .recipeList li {
-	margin-bottom: 20px;
-	padding: 15px;
-	background-color: white;
-  	border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: white;
+      border-radius: 5px;
 }
 
 .recipeList li:hover {
-	background-color: #e5e3e3;
+    background-color: #e5e3e3;
 
 }
 
 
 
 .recipeList .link {
-	color: #383838;
-	text-decoration: none;
-	font-size: 2em;
+    color: #383838;
+    text-decoration: none;
+    font-size: 2em;
 }
 
