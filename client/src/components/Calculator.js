@@ -23,7 +23,7 @@ class Calculator extends Component {
     this.url = "http://127.0.0.1:5000/";
     this.state = {
       name: "",
-      //numFlavours: 0,
+      numFlavours: 0,
       flavours: {},
       batchVolume: 100,
       batchNic: 6,
@@ -104,7 +104,7 @@ class Calculator extends Component {
   }
 
   calculateVolume(percentage) {
-      let volume = this.state.batchVolume * (percentage / 100);
+  	let volume = this.state.batchVolume * (percentage / 100);
     volume = Math.round(volume * 100) / 100;
     // volume = (volume > batchVolume) ? batchVolume : volume;
     return volume;
@@ -167,12 +167,17 @@ class Calculator extends Component {
     let volumeTaken = 0;
     let nicPGVolume = this.calculateNicVolume() * (100 - this.state.baseRatio) / 100;
     volumeTaken += nicPGVolume;
-    // volumeTaken += this.calculateVGVolume();
-    for (let i = 0; i < this.state.flavours.length; i++) {
-      volumeTaken += this.calculateVolume(this.state.flavours[i].percentage);
+    //volumeTaken += this.calculateVGVolume();
+    for (let i = 0; i < this.state.numFlavours; i++) {
+    	if (this.state.flavours.hasOwnProperty(i)) {
+      		volumeTaken += this.calculateVolume(this.state.flavours[i].percentage);
+    	}
     }
     let PGVolume = desiredPGVolume - volumeTaken;
     PGVolume = Math.round(PGVolume * 100) / 100;
+
+    console.log("volumeTaken " + volumeTaken);
+    console.log("desiredVolume " + desiredPGVolume);
     return PGVolume;
   }
 
