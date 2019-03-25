@@ -35,7 +35,7 @@ def insert_recipe(recipe):
     recipe_model = Recipe(
         name = recipe['name'],
         version = version,
-        batchvolume = int(recipe['batchvolume']),
+        batchvolume = recipe['batchvolume'],
         batchnic = recipe['batchnic'],
         batchratio = recipe['batchratio'],
         basenic = recipe['basenic'],

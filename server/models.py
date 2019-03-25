@@ -15,11 +15,11 @@ class Recipe(db.Model):
 
     def __eq__(self, other):
         return (self.name == other.name and 
-                self.batchvolume == int(other.batchvolume) and
-                self.batchnic == int(other.batchnic) and 
-                self.batchratio == int(other.batchratio) and 
-                self.basenic == int(other.basenic) and 
-                self.baseratio == int(other.baseratio) and
+                int(self.batchvolume) == int(other.batchvolume) and
+                int(self.batchnic) == int(other.batchnic) and 
+                int(self.batchratio) == int(other.batchratio) and 
+                int(self.basenic) == int(other.basenic) and 
+                int(self.baseratio) == int(other.baseratio) and
                 self.flavours == other.flavours)
 
     # def __ne__(self, other):
