@@ -13,6 +13,25 @@ class Recipe(db.Model):
     baseratio = db.Column("baseratio", db.Integer)
     flavours = db.relationship("Flavour", cascade="all, delete-orphan")
 
+    def __eq__(self, other):
+        return (self.name == other.name and 
+                self.batchvolume == int(other.batchvolume) and
+                self.batchnic == int(other.batchnic) and 
+                self.batchratio == int(other.batchratio) and 
+                self.basenic == int(other.basenic) and 
+                self.baseratio == int(other.baseratio) and
+                self.flavours == other.flavours)
+
+    # def __ne__(self, other):
+    #     return (self.name != other.name or 
+    #             self.batchvolume != other.batchvolume or 
+    #             self.batchnic != other.batchnic or 
+    #             self.batchratio != other.batchratio or 
+    #             self.basenic != other.basenic or 
+    #             self.baseratio != other.baseratio)
+                # self.baseratio != other.baseratio or 
+                # self.flavours != other.flavours)
+
     def as_dict(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
     
@@ -23,6 +42,17 @@ class Flavour(db.Model):
     name = db.Column("name", db.String)
     percentage = db.Column("percentage", db.Integer)
     recipeid = db.Column(db.Integer, db.ForeignKey('recipes.id'))
+
+    def __eq__(self, other):
+        return (self.name == other.name and
+                int(self.percentage) == int(other.percentage))
+
+    def __ne__(self, other):
+        return (self.name != other.name or
+                self.percentage != other.percentage)
+    
+    def __hash__(self):
+        return hash(self.name + str(self.percentage))
 
     def as_dict(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}

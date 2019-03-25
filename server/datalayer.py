@@ -1,9 +1,7 @@
 from models import Recipe, Flavour, User
 from app_setup import db
+from pprint import pprint
 # from server import db
-
-def samplefunc():
-    return "1234"
 
 def insert_sample_recipe(recipe_name):
 
@@ -28,17 +26,35 @@ def insert_sample_recipe(recipe_name):
 
 
 def insert_recipe(recipe):
-    flavours = [Flavour(name=x['label'], percentage=x['percentage']) for x in recipe["flavours"]]
+    existing_recipe = recipe_by_name(recipe['name'])
+    version = 0 
+    if (existing_recipe):
+        print("Recipe version:", existing_recipe.version)
+        version = existing_recipe.version + 1
+    
     recipe_model = Recipe(
         name = recipe['name'],
-        version = 3, # placeholder - write logic to generate this based on past recipes
-        batchvolume = recipe['batchvolume'],
+        version = version,
+        batchvolume = int(recipe['batchvolume']),
         batchnic = recipe['batchnic'],
         batchratio = recipe['batchratio'],
         basenic = recipe['basenic'],
         baseratio = recipe['baseratio'],
-        flavours = flavours
+        flavours = [Flavour(name=x['label'], percentage=x['percentage']) for x in recipe["flavours"]]
     )
+
+    if existing_recipe is not None:
+        print("Existing recipe")
+        pprint(existing_recipe.as_dict())
+
+        print("New recipe")
+        pprint(recipe_model.as_dict())
+
+        print("models are the same:", recipe_model == existing_recipe)
+
+        if recipe_model == existing_recipe:
+            print("No difference between recipes - skipping insertion")
+            return
     try:
         db.session.add(recipe_model)
         db.session.commit()
@@ -51,7 +67,7 @@ def list_recipes():
     return names
 
 def recipe_by_name(name):
-    subquery = db.session.query(func.max(Recipe.version)).filter(Recipe.name == name)
+    subquery = db.session.query(db.func.max(Recipe.version)).filter(Recipe.name == name)
     query = db.session.query(Recipe).filter(Recipe.name == name, Recipe.version == subquery)
     try:
         return query.one()
@@ -74,6 +90,18 @@ def dictify_recipe(recipe):
     result["numflavours"] = len(recipe.flavours)
     return result
 
+def recipe_is_same(json_recipe, recent_recipe):
+    flavours = [Flavour(name=x['label'], percentage=x['percentage']) for x in json_recipe["flavours"]]
+    print(flavours)
+    print(recent_recipe.flavours)
+    return (recent_recipe.name == json_recipe['name'] and
+        recent_recipe.batchvolume == json_recipe['batchvolume'] and
+        recent_recipe.batchnic == json_recipe['batchnic'] and
+        recent_recipe.batchratio == json_recipe['batchratio'] and
+        recent_recipe.basenic == json_recipe['basenic'] and
+        recent_recipe.baseratio == json_recipe['baseratio'])
+        # recent_recipe.baseratio == json_recipe['baseratio'] and
+        # recent_recipe.flavours == flavours)
 
 if __name__=="__main__":
     Base.metadata.create_all(engine)
