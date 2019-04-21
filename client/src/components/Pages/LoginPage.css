@@ -1,0 +1,43 @@
+.pageTitle {
+    margin-left: 13px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    font-weight: 400;
+    font-size: 3em;
+    color: #383838;
+}
+
+.loginPage {
+    max-width: 500px;
+    margin: auto;
+      
+}
+
+.form-group {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    
+   
+}
+
+
+
+.form-control {
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: none;
+    border-style: none;
+    width: 94%;
+    font-size: 2em;
+}
+
+.btn {
+    padding: 20px;
+    width: 98%;
+    font-size: 2em;
+    background-color: rgb(143, 163, 252);
+    cursor: pointer;
+    border-radius: 5px;
+    color: rgb(245, 245, 245);
+    letter-spacing: 0.15em;
+  }

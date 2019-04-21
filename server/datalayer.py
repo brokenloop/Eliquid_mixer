@@ -44,14 +44,7 @@ def insert_recipe(recipe):
     )
 
     if existing_recipe is not None:
-        print("Existing recipe")
-        pprint(existing_recipe.as_dict())
-
-        print("New recipe")
-        pprint(recipe_model.as_dict())
-
-        print("models are the same:", recipe_model == existing_recipe)
-
+        
         if recipe_model == existing_recipe:
             print("No difference between recipes - skipping insertion")
             return
@@ -102,6 +95,16 @@ def recipe_is_same(json_recipe, recent_recipe):
         recent_recipe.baseratio == json_recipe['baseratio'])
         # recent_recipe.baseratio == json_recipe['baseratio'] and
         # recent_recipe.flavours == flavours)
+
+
+def create_user(username, password):
+    db.session.add(User(
+        username=username,
+        password=guard.encrypt_password(password),
+        roles='operator'
+    ))
+    db.session.commit()
+
 
 if __name__=="__main__":
     Base.metadata.create_all(engine)

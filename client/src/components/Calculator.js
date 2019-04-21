@@ -68,9 +68,13 @@ class Calculator extends Component {
     const target = event.target;
     const value = target.value;
     const name = target.name;
-    this.setState({
-      [name]: value
-    });
+    console.log(Number(value))
+    console.log(isNaN(Number(value)))
+    if (!isNaN(Number(value))) {
+      this.setState({
+        [name]: value
+      });
+    }
   }
 
   handleRecipeNameChange(event) {
@@ -88,6 +92,9 @@ class Calculator extends Component {
   }
 
   handleFlavourChange(key, event) {
+    if (isNaN(event.target.value)) {
+      return;
+    }
     let flavours = Object.assign({}, this.state.flavours);
     flavours[key][event.target.name] = event.target.value;
     this.setState({
@@ -257,6 +264,7 @@ class Calculator extends Component {
       return recipe;
   }
 
+    //TODO: move this to recipeservice
     loadRecipe() {
         let recipeName = this.props.match.params.recipename;
         
@@ -269,6 +277,7 @@ class Calculator extends Component {
         }
     }
 
+    // TODO: move this to recipe-service
     saveRecipe(url, recipe) {
         console.log(this.state)
         let flavours = [];
@@ -314,6 +323,7 @@ class Calculator extends Component {
                       <InputField
                   label="Volume"
                   name="batchVolume"
+                  filter="text"
                   onChange={this.handleInputChange.bind(this)}
                   symbol="ml"
                   placeholder={this.state.batchVolume}/>

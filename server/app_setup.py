@@ -3,6 +3,7 @@ import flask_praetorian
 import flask_sqlalchemy
 from flask_cors import CORS
 
+
 app = Flask(__name__)
 CORS(app)
 app.config["DEBUG"] = True

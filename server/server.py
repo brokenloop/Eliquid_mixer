@@ -11,9 +11,14 @@ import flask_praetorian
 guard = flask_praetorian.Praetorian()
 guard.init_app(app, User)
 
-
 def consoleprint(message):
     print(message, file=sys.stderr)
+
+
+@app.route('/', methods=['GET'])
+def root():
+    
+    return dumps('Server active')
 
 
 @app.route('/recipes', methods=['GET'])
@@ -51,13 +56,31 @@ def recipe_by_id(recipe_id):
         abort(404)
 
 
-
-
 # ------------AUTHENTICATION-----------------
+
+@app.route('/create_user', methods=['POST'])
+def create_user():
+    """
+    Logs a user in by parsing a POST request containing user credentials and
+    issuing a JWT token.
+
+    .. example::
+       $ curl http://localhost:5000/login -X POST \
+         -d '{"username":"Walter","password":"calmerthanyouare"}'
+    """
+    req = request.get_json(force=True)
+    username = req.get('username', None)
+    password = req.get('password', None)
+
+    user = guard.authenticate(username, password)
+    ret = {'access_token': guard.encode_jwt_token(user)}
+    return (jsonify(ret), 200)
+
+# ------------AUTHENTICATION EXAMPLES-----------------
 
 # Set up some routes for the example
 
-@app.route('/login', methods=['POST'])
+@app.route('/users/login', methods=['POST'])
 def login():
     """
     Logs a user in by parsing a POST request containing user credentials and
@@ -86,7 +109,7 @@ def protected():
        $ curl http://localhost:5000/protected -X GET \
          -H "Authorization: Bearer <your_token>"
     """
-    return flask.jsonify(message='protected endpoint (allowed user {})'.format(
+    return jsonify(message='protected endpoint (allowed user {})'.format(
         flask_praetorian.current_user().username,
     ))
 
@@ -102,7 +125,7 @@ def protected_admin_required():
        $ curl http://localhost:5000/protected_admin_required -X GET \
           -H "Authorization: Bearer <your_token>"
     """
-    return flask.jsonify(
+    return jsonify(
         message='protected_admin_required endpoint (allowed user {})'.format(
             flask_praetorian.current_user().username,
         )
@@ -121,7 +144,7 @@ def protected_operator_accepted():
        $ curl http://localhost/protected_operator_accepted -X GET \
          -H "Authorization: Bearer <your_token>"
     """
-    return flask.jsonify(
+    return jsonify(
         message='protected_operator_accepted endpoint (allowed usr {})'.format(
             flask_praetorian.current_user().username,
         )
