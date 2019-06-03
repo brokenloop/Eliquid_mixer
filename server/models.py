@@ -1,10 +1,13 @@
 from app_setup import db
 
+
 class Recipe(db.Model):
     __tablename__ = 'recipes'
     __table_args__ = (db.UniqueConstraint('name', 'version', name='uix_1'),)
     id = db.Column(db.Integer, primary_key=True)
+    userid = db.Column(db.Integer, db.ForeignKey('users.id'))
     name = db.Column("name", db.String)
+    public = db.Column("public", db.Boolean)
     version = db.Column("version", db.Integer)
     batchvolume = db.Column("batchvolume", db.Integer)
     batchnic = db.Column("batchnic", db.Integer)
@@ -14,23 +17,14 @@ class Recipe(db.Model):
     flavours = db.relationship("Flavour", cascade="all, delete-orphan")
 
     def __eq__(self, other):
-        return (self.name == other.name and 
+        return (self.name == other.name and
+                int(self.public) == int(other.public) and
                 int(self.batchvolume) == int(other.batchvolume) and
-                int(self.batchnic) == int(other.batchnic) and 
-                int(self.batchratio) == int(other.batchratio) and 
-                int(self.basenic) == int(other.basenic) and 
+                int(self.batchnic) == int(other.batchnic) and
+                int(self.batchratio) == int(other.batchratio) and
+                int(self.basenic) == int(other.basenic) and
                 int(self.baseratio) == int(other.baseratio) and
                 self.flavours == other.flavours)
-
-    # def __ne__(self, other):
-    #     return (self.name != other.name or 
-    #             self.batchvolume != other.batchvolume or 
-    #             self.batchnic != other.batchnic or 
-    #             self.batchratio != other.batchratio or 
-    #             self.basenic != other.basenic or 
-    #             self.baseratio != other.baseratio)
-                # self.baseratio != other.baseratio or 
-                # self.flavours != other.flavours)
 
     def as_dict(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
@@ -57,7 +51,7 @@ class Flavour(db.Model):
     def as_dict(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
-        
+
 # A generic user model that might be used by an app powered by flask-praetorian
 class User(db.Model):
     __tablename__ = 'users'
@@ -65,6 +59,7 @@ class User(db.Model):
     username = db.Column(db.String, unique=True)
     password = db.Column(db.String)
     roles = db.Column(db.String)
+    recipes = db.relationship("Recipe")
     is_active = db.Column(db.Boolean, default=True, server_default='true')
 
     @property

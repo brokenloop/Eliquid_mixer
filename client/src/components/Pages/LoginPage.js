@@ -41,14 +41,9 @@ class LoginPage extends React.Component {
 
       this.setState({ loading: true });
       userService.login(username, password)
-          .then(
-            console.log("login")
-              // user => {
-              //     const { from } = this.props.location.state || { from: { pathname: "/" } };
-              //     this.props.history.push(from);
-              // },
-              // error => this.setState({ error, loading: false })
-          );
+      .then( x => {
+        window.location.reload(true);
+      });
   }
 
   render() {

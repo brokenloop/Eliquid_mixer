@@ -13,9 +13,13 @@ constructor() {
 
 
 componentDidMount() {
-    recipeService.getAllRecipes()
+    recipeService.getUserRecipes()
         .then(recipes => {
             this.setState({recipes});
+        })
+        .catch(error => {
+          console.log(error);
+          // this.props.history.push('/')
         })
 }
 

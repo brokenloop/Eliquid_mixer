@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Navbar from './Navbar';
 import Calculator from './Calculator';
-import LoginPage from './Pages/LoginPage';
+import UserPage from './Pages/UserPage';
 import AccountPage from './Pages/RecipePage';
 import ProtectedPage from './Pages/ProtectedPage';
 
@@ -16,19 +16,17 @@ import {
 class App extends Component {
   render() {
       return (
-      <Router>
-        <div>
-        <Navbar />
-        <div>
-          <Route exact path="/" component={Calculator} />
-          <Route path = "/protected" component={ProtectedPage} />
-          <Route path = "/login" component={LoginPage} />
-          <Route path="/recipes" component={AccountPage} />
-          <Route path = "/Calculator/:recipename" component={Calculator} />
-
-        </div>
-        </div>
-      </Router>
+		  <Router>
+			<div>
+			<Navbar />
+			<div>
+			  <Route exact path="/" component={Calculator} />
+				<Route path = "/account" component={UserPage} />
+			  <Route path="/recipes" component={AccountPage} />
+			  <Route path = "/Calculator/:recipename" component={Calculator} />
+			</div>
+			</div>
+		  </Router>
       );
     }
   }

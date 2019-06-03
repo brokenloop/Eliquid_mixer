@@ -5,18 +5,11 @@ import InputField from './InputField';
 import SliderField from './SliderField';
 import Button from './Button';
 import Table from './Table';
-import axios from 'axios';
 import TableRow from './TableRow';
 import RecipeName from './RecipeName';
-//import Navbar from './Navbar';
-// import Footer from './Footer';
-
-require('create-react-class');
-
+import {recipeService} from '../services/recipe-service.js';
 
 class Calculator extends Component {
-
-  
 
   constructor() {
     super();
@@ -68,8 +61,6 @@ class Calculator extends Component {
     const target = event.target;
     const value = target.value;
     const name = target.name;
-    console.log(Number(value))
-    console.log(isNaN(Number(value)))
     if (!isNaN(Number(value))) {
       this.setState({
         [name]: value
@@ -183,8 +174,6 @@ class Calculator extends Component {
     let PGVolume = desiredPGVolume - volumeTaken;
     PGVolume = Math.round(PGVolume * 100) / 100;
 
-    console.log("volumeTaken " + volumeTaken);
-    console.log("desiredVolume " + desiredPGVolume);
     return PGVolume;
   }
 
@@ -264,36 +253,20 @@ class Calculator extends Component {
       return recipe;
   }
 
-    //TODO: move this to recipeservice
-    loadRecipe() {
-        let recipeName = this.props.match.params.recipename;
-        
-        if (typeof recipeName !== "undefined") {
-           axios.get(this.url + "recipes/name/" + recipeName)
-            .then(res => {
-                const recipe = res.data;
-                this.setState(this.mapResultToRecipe(recipe));
-            });
-        }
+  loadRecipe() {
+    let recipeName = this.props.match.params.recipename;
+    if (recipeName) {
+      recipeService.loadRecipe(recipeName)
+      .then(recipe => {
+        this.setState(this.mapResultToRecipe(recipe));
+      })
+      .catch(_ => {
+        this.props.history.push('/')
+      });
     }
+  }
 
-    // TODO: move this to recipe-service
-    saveRecipe(url, recipe) {
-        console.log(this.state)
-        let flavours = [];
-        Object.entries(this.state.flavours).forEach(([key, value]) => flavours.push(value))
-        axios.post(this.url + "recipes/name/" + this.state.name, {
-            name: this.state.name,
-            batchvolume: this.state.batchVolume,
-            batchnic: this.state.batchNic,
-            batchratio: this.state.batchRatio,
-            basenic: this.state.baseNic,
-            baseratio: this.state.baseRatio,
-            flavours: flavours
-        });
-    }
-
-      componentDidMount() {
+    componentDidMount() {
           this.loadRecipe();
     }
 
@@ -374,7 +347,7 @@ class Calculator extends Component {
                   {flavourOutputList}
                 </Table>
               </Card>
-              <button className="saveButton" onClick={(e) => this.saveRecipe(this.url, this.state)}>Save Recipe</button>
+              <button className="saveButton" onClick={(e) => recipeService.saveRecipe(this.state)}>Save Recipe</button>
             </div>
           </div>
         </div>
