@@ -6,7 +6,7 @@ import Navbar from './Navbar';
 import Calculator from './Calculator';
 import UserPage from './Pages/UserPage';
 import AccountPage from './Pages/RecipePage';
-import ProtectedPage from './Pages/ProtectedPage';
+import SignUpPage from './Pages/SignUpPage';
 
 import {
   BrowserRouter as Router,
@@ -16,17 +16,18 @@ import {
 class App extends Component {
   render() {
       return (
-		  <Router>
-			<div>
-			<Navbar />
-			<div>
-			  <Route exact path="/" component={Calculator} />
-				<Route path = "/account" component={UserPage} />
-			  <Route path="/recipes" component={AccountPage} />
-			  <Route path = "/Calculator/:recipename" component={Calculator} />
-			</div>
-			</div>
-		  </Router>
+				<Router>
+					<div>
+						<Navbar />
+						<div>
+							<Route exact path="/" component={Calculator} />
+							<Route path = "/account" component={UserPage} />
+							<Route path = "/create_account" component={SignUpPage} />
+							<Route path="/recipes" component={AccountPage} />
+							<Route path = "/Calculator/:recipename" component={Calculator} />
+						</div>
+					</div>
+				</Router>
       );
     }
   }

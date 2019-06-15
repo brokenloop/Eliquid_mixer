@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import RecipeList from '.././RecipeList';
+import { Redirect } from 'react-router-dom';
 import {recipeService} from '../../services/recipe-service.js';
+import { userService } from '../../services/user-service.js';
 
 class RecipePage extends Component {
 
@@ -24,12 +26,16 @@ componentDidMount() {
 }
 
   render() {
-      
-    return (
-      <div className="RecipePage">
-        <RecipeList recipes={this.state.recipes} />
-      </div>
-    );
+     if (userService.isLoggedIn()) {
+      return (
+        <div className="RecipePage">
+          <RecipeList recipes={this.state.recipes} />
+        </div>
+      );
+     } 
+     else {
+       return <Redirect to="/" />
+     }
   }
 }
 

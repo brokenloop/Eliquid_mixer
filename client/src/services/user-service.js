@@ -29,27 +29,12 @@ function isLoggedIn() {
 }
 
 
-function createUser(username, password) {
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-    };
-    return fetch(`${urls.BASE_URL}/users/create_user`, requestOptions)
-        .then(handleResponse)
-        .then( res => {
-            return res;
-        })
-        .catch(error => error);
-}
-
 function login(username, password) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({username, password})
     };
-
     return fetch(`${urls.BASE_URL}/users/login`, requestOptions)
         .then(handleResponse)
         .then(data => {
@@ -84,8 +69,32 @@ function handleResponse(response) {
     });
 }
 
+function createUser(username, password) {
+    console.log('create_user');
+    const requestOptions = {
+        method: 'POST',
+        body: JSON.stringify({username, password})
+    }
+    return new Promise((resolve, reject) => {
+        fetch(`${urls.BASE_URL}/users/create_user`, requestOptions)
+        .then(handleResponse)
+        .then(data => {
+            if (data !== undefined) {
+                localStorage.setItem('user', JSON.stringify(data));
+            }
+            return resolve(data);
+        })
+        .catch(error => {
+            console.log('error');
+            console.log(error);
+            reject(error);
+        });
+    });
+}
+
 function logout() {
-	return localStorage.removeItem('user');
+	localStorage.removeItem('user');
+    window.location.reload(true);
 }
  
 function getAuthHeader() {

@@ -7,13 +7,14 @@ import { userService } from '../services/user-service';
 class Navbar extends Component {
 
   render() {
-    let accountMessage = userService.isLoggedIn() ? "My account" : "Sign in"
+    let isLoggedIn = userService.isLoggedIn();
+    let accountLink = isLoggedIn ? <Link onClick={userService.logout}>Log Out</Link> : <Link to={'/account'}>Log In</Link>;
     return (
       <div className="navbar">
         <ul>
-          <li><Link to={'/account'}>{accountMessage}</Link></li>
-          {userService.isLoggedIn() ? <li><Link to={'/recipes'}>Recipes</Link></li> : null}
-          <li><Link to={'/'}>Home</Link></li>
+          <li>{accountLink}</li>
+          {isLoggedIn ? <li><Link to={'/recipes'}>My Recipes</Link></li> : null}
+          <li><Link to={'/'}>Calculator</Link></li>
         </ul>
       </div>
     );
