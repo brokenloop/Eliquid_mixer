@@ -43,7 +43,6 @@ class LoginPage extends React.Component {
 
       this.setState({ loading: true });
       this.context.login(username, password);
-    // userService.login(username, password);
   }
 
   render() {
@@ -51,7 +50,7 @@ class LoginPage extends React.Component {
       const { username, password, submitted, loading, error } = this.state;
       if (this.context.isLoggedIn) {
           console.log('FUCK');
-          return <Redirect to="/" />
+        //   return <Redirect to="/" />
       }
       return (
           <div className="loginPage">

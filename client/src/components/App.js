@@ -20,12 +20,8 @@ class App extends Component {
 		super(props);
 
 		this.login = (username, password) => {
-			console.log("LOGIN");
 			userService.login(username, password)
 			.then(response => response.success ? this.setState({isLoggedIn: true}) : null);
-			// .then(this.setState({isLoggedIn: true}))
-			// .catch(console.log('FAIL'));
-			// this.setState({isLoggedIn: true})
 		}
 
 		this.logout = () => {
@@ -33,16 +29,25 @@ class App extends Component {
 			.then(this.setState({isLoggedIn: false}))
 		}
 
+		this.refreshLogin = () => {
+			this.setState({isLoggedIn: userService.isLoggedIn()});
+		}
+
 		this.state = {
 			isLoggedIn: false,
 			login: this.login,
-			logout: this.logout
+			logout: this.logout,
+			refreshLogin: this.refreshLogin,
 		};
-	  }
+	}
 
-  render() {
-      return (
-		  <UserContext.Provider value={this.state}>
+	componentDidMount() {
+		this.refreshLogin();
+	}
+
+	render() {
+		return (
+			<UserContext.Provider value={this.state}>
 				<Router>
 					<div>
 						<Navbar />
@@ -55,9 +60,9 @@ class App extends Component {
 						</div>
 					</div>
 				</Router>
-		  </UserContext.Provider>
-      );
+			</UserContext.Provider>
+		);
     }
-  }
+}
 
 export default App;

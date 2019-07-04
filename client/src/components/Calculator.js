@@ -8,6 +8,7 @@ import Table from './Table';
 import TableRow from './TableRow';
 import RecipeName from './RecipeName';
 import {recipeService} from '../services/recipe-service.js';
+import UserContext from './Context/ContextProvider';
 
 class Calculator extends Component {
 
@@ -276,6 +277,9 @@ class Calculator extends Component {
     let valid = this.validateOutput();
     let flavourInputList = this.generateFlavourInputList();
     let flavourOutputList = this.generateFlavourOutputList();
+    let saveRecipeButton = this.context.isLoggedIn ? 
+      <button className="saveButton" onClick={(e) => recipeService.saveRecipe(this.state)}>Save Recipe</button>
+      : null;
 
     return (
       <div className="Calculator">
@@ -347,7 +351,10 @@ class Calculator extends Component {
                   {flavourOutputList}
                 </Table>
               </Card>
-              <button className="saveButton" onClick={(e) => recipeService.saveRecipe(this.state)}>Save Recipe</button>
+              {saveRecipeButton}
+
+
+
             </div>
           </div>
         </div>
@@ -356,5 +363,6 @@ class Calculator extends Component {
     );
   }
 }
+Calculator.contextType = UserContext;
 
 export default Calculator;

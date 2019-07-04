@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { userService } from '../../services/user-service.js';
+import UserContext from '../Context/ContextProvider';
 import './LoginPage.css';
 
 
@@ -47,11 +48,11 @@ class SignUpPage extends React.Component {
       this.setState({ loading: true });
       userService.createUser(username, password)
       .then( x => {
-        this.props.history.push('/');
+         this.context.refreshLogin();
+         this.props.history.push('/');
       })
       .catch(error => {
-          console.log('error')
-          console.log(error)
+          console.log(error);
           this.setState({
             error: "Username already exists", 
             loading: false,
@@ -102,5 +103,6 @@ class SignUpPage extends React.Component {
       );
   }
 }
+SignUpPage.contextType = UserContext;
 
 export default SignUpPage;

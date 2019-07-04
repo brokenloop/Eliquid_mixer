@@ -47,15 +47,12 @@ function login(username, password) {
             return {success: true};
         })
         .catch(error => {
-            console.log('error');
-            console.log(error);
             return {success: false};
         });
 }
 
 function handleResponse(response) {
     return new Promise((resolve, reject) => {
-        console.log(response);
         response.text().then(text => {
             const data = text && JSON.parse(text);
             if (!response.ok) {
@@ -73,7 +70,6 @@ function handleResponse(response) {
 }
 
 function createUser(username, password) {
-    console.log('create_user');
     const requestOptions = {
         method: 'POST',
         body: JSON.stringify({username, password})
@@ -88,8 +84,6 @@ function createUser(username, password) {
             return resolve(data);
         })
         .catch(error => {
-            console.log('error');
-            console.log(error);
             reject(error);
         });
     });

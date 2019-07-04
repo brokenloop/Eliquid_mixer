@@ -38,7 +38,6 @@ function saveRecipe(recipe) {
 
 function loadRecipe(recipeName) {
     return new Promise((resolve, reject) => {
-        console.log('promise');
         if (userService.isLoggedIn()) {
             if (typeof recipeName !== "undefined") {
                 const requestOptions = {
@@ -49,13 +48,11 @@ function loadRecipe(recipeName) {
                 return fetch(url, requestOptions)
                 .then(userService.handleResponse)
                 .then(recipe => {
-                    console.log(1);
                     return resolve(recipe)
                 }) 
                 .catch(error => reject(error));
             }
         } else {
-            console.log(3);
             return reject("not logged in");
         }
     });
@@ -69,7 +66,6 @@ function getUserRecipes() {
                 headers: userService.getAuthHeader()
             }
             const url = urls.BASE_URL + "/my_recipes";
-            console.log(url);
             return fetch(url, requestOptions)
             .then(userService.handleResponse)
             .then(recipes => resolve(recipes))

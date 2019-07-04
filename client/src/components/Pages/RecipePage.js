@@ -22,11 +22,12 @@ componentDidMount() {
         })
         .catch(error => {
           console.log(error);
+          // this.props.history.push('/')
         })
 }
 
   render() {
-     if (this.context.isLoggedIn) {
+    if (this.context.isLoggedIn) {
       return (
         <div className="RecipePage">
           <RecipeList recipes={this.state.recipes} />
