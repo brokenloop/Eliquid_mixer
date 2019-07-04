@@ -1,5 +1,6 @@
 import { authHeader } from '../helpers/auth-header.js';
 import * as urls from '../constants/base-url.js';
+// import { ContextProvider } from '../components/Context/ContextProvider';
 
 // ```
 // Methods we need:
@@ -41,12 +42,14 @@ function login(username, password) {
             if (data !== undefined) {
                 localStorage.setItem('user', JSON.stringify(data));
             }
-
-            return data;
+            // ContextProvider.logIn();
+            // return data;
+            return {success: true};
         })
         .catch(error => {
             console.log('error');
             console.log(error);
+            return {success: false};
         });
 }
 

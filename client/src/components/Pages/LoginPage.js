@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { userService } from '../../services/user-service.js';
+import UserContext from '../Context/ContextProvider';
 import './LoginPage.css';
 
 
@@ -13,7 +14,6 @@ class LoginPage extends React.Component {
       // userService.logout();
 
       this.state = {
-          isLoggedIn: false,
           username: '',
           password: '',
           submitted: false,
@@ -42,15 +42,15 @@ class LoginPage extends React.Component {
       }
 
       this.setState({ loading: true });
-      userService.login(username, password)
-      .then(_ => {
-          this.setState({isLoggedIn: true});
-      })
+      this.context.login(username, password);
+    // userService.login(username, password);
   }
 
   render() {
+      console.log(this.context)
       const { username, password, submitted, loading, error } = this.state;
-      if (this.state.isLoggedIn) {
+      if (this.context.isLoggedIn) {
+          console.log('FUCK');
           return <Redirect to="/" />
       }
       return (
@@ -84,5 +84,6 @@ class LoginPage extends React.Component {
       );
   }
 }
+LoginPage.contextType = UserContext;
 
 export default LoginPage;

@@ -3,6 +3,7 @@ import RecipeList from '.././RecipeList';
 import { Redirect } from 'react-router-dom';
 import {recipeService} from '../../services/recipe-service.js';
 import { userService } from '../../services/user-service.js';
+import UserContext from '../Context/ContextProvider';
 
 class RecipePage extends Component {
 
@@ -21,12 +22,11 @@ componentDidMount() {
         })
         .catch(error => {
           console.log(error);
-          // this.props.history.push('/')
         })
 }
 
   render() {
-     if (userService.isLoggedIn()) {
+     if (this.context.isLoggedIn) {
       return (
         <div className="RecipePage">
           <RecipeList recipes={this.state.recipes} />
@@ -38,5 +38,6 @@ componentDidMount() {
      }
   }
 }
+RecipePage.contextType = UserContext;
 
 export default RecipePage;

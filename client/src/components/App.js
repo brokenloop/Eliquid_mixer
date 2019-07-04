@@ -7,15 +7,42 @@ import Calculator from './Calculator';
 import UserPage from './Pages/UserPage';
 import AccountPage from './Pages/RecipePage';
 import SignUpPage from './Pages/SignUpPage';
+import { UserContext } from './Context/ContextProvider';
 
 import {
   BrowserRouter as Router,
   Route,
 } from 'react-router-dom';
+import { userService } from '../services/user-service';
 
 class App extends Component {
+	constructor(props) {
+		super(props);
+
+		this.login = (username, password) => {
+			console.log("LOGIN");
+			userService.login(username, password)
+			.then(response => response.success ? this.setState({isLoggedIn: true}) : null);
+			// .then(this.setState({isLoggedIn: true}))
+			// .catch(console.log('FAIL'));
+			// this.setState({isLoggedIn: true})
+		}
+
+		this.logout = () => {
+			userService.logout()
+			.then(this.setState({isLoggedIn: false}))
+		}
+
+		this.state = {
+			isLoggedIn: false,
+			login: this.login,
+			logout: this.logout
+		};
+	  }
+
   render() {
       return (
+		  <UserContext.Provider value={this.state}>
 				<Router>
 					<div>
 						<Navbar />
@@ -28,6 +55,7 @@ class App extends Component {
 						</div>
 					</div>
 				</Router>
+		  </UserContext.Provider>
       );
     }
   }
