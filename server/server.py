@@ -71,7 +71,6 @@ def recipe_by_id(recipe_id):
 
 
 # ------------AUTHENTICATION-----------------
-# tested and works
 @app.route('/users/create_user', methods=['POST'])
 def create_user():
     """
@@ -172,4 +171,4 @@ def protected_operator_accepted():
     )
 
 
-app.run()
+app.run(host='0.0.0.0')
