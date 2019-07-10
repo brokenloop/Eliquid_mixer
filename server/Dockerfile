@@ -1,6 +1,6 @@
 FROM jfloff/alpine-python:3.7
 
-MAINTAINER Your Name <danieljordandev@gmail.com>
+MAINTAINER Daniel Jordan <danieljordandev@gmail.com>
 
 RUN mkdir -p /app
 WORKDIR /app
@@ -10,5 +10,4 @@ COPY /*.txt /app/
 RUN cd /app
 RUN pip install -r requirements.txt
 
-ENTRYPOINT ["python"]
-CMD ["server.py"]
+CMD ["gunicorn", "-b", "0.0.0.0:5000", "flask_server"]

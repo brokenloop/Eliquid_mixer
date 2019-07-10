@@ -2,6 +2,7 @@ from models import Recipe, Flavour, User
 from app_setup import db
 from pprint import pprint
 
+db.create_all()
 
 def insert_sample_recipe(recipe_name):
 
