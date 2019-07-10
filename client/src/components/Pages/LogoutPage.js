@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { userService } from '../../services/user-service.js';
 
 class LogoutPage extends React.Component {

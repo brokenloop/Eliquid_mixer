@@ -1,8 +1,7 @@
 // http://jasonwatmore.com/post/2018/09/11/react-basic-http-authentication-tutorial-example
 
-import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import { userService } from '../../services/user-service.js';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import UserContext from '../Context/ContextProvider';
 import './LoginPage.css';
 
@@ -10,8 +9,6 @@ import './LoginPage.css';
 class LoginPage extends React.Component {
   constructor(props) {
       super(props);
-
-      // userService.logout();
 
       this.state = {
           username: '',
@@ -34,7 +31,7 @@ class LoginPage extends React.Component {
       e.preventDefault();
 
       this.setState({ submitted: true });
-      const { username, password, returnUrl } = this.state;
+      const { username, password } = this.state;
 
       // stop here if form is invalid
       if (!(username && password)) {
@@ -49,7 +46,6 @@ class LoginPage extends React.Component {
       console.log(this.context)
       const { username, password, submitted, loading, error } = this.state;
       if (this.context.isLoggedIn) {
-          console.log('FUCK');
         //   return <Redirect to="/" />
       }
       return (

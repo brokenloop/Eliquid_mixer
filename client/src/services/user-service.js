@@ -1,4 +1,3 @@
-import { authHeader } from '../helpers/auth-header.js';
 import * as urls from '../constants/base-url.js';
 // import { ContextProvider } from '../components/Context/ContextProvider';
 

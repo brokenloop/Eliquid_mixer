@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import RecipeList from '.././RecipeList';
 import { Redirect } from 'react-router-dom';
 import {recipeService} from '../../services/recipe-service.js';
-import { userService } from '../../services/user-service.js';
 import UserContext from '../Context/ContextProvider';
 
 class RecipePage extends Component {
