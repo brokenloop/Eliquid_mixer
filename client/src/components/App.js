@@ -8,6 +8,7 @@ import UserPage from './Pages/UserPage';
 import AccountPage from './Pages/RecipePage';
 import SignUpPage from './Pages/SignUpPage';
 import { UserContext } from './Context/ContextProvider';
+import ReactGA from 'react-ga';
 
 import {
   BrowserRouter as Router,
@@ -17,6 +18,8 @@ import { userService } from '../services/user-service';
 
 class App extends Component {
 	constructor(props) {
+		ReactGA.initialize('UA-144103260-1');
+		ReactGA.pageview('/homepage');
 		super(props);
 
 		this.login = (username, password) => {
