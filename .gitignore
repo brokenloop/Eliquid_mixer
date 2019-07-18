@@ -25,3 +25,4 @@ chrome-user-data
 *.swo
 mongodb_credentials.txt
 secret.py
+/data/certbo
