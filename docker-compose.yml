@@ -1,6 +1,34 @@
 version: '3'
 services:
+
+  server:
+    container_name: flask_server
+    build: ./server
+    volumes:
+      - ./server:/app
+    expose:
+      - "5000"
+    networks:
+      back-tier:
+        aliases:
+          - flask-app
+
+  client:
+    container_name: react_client
+    build: ./client
+    volumes:
+      - ./client/src:/usr/src/app/src
+    expose:
+      - "3000"
+    networks:
+      back-tier:
+        aliases:
+          - react-app
+
   nginx: 
+    depends_on:
+      - client
+      - server
     image: nginx:1.15-alpine
     restart: unless-stopped
     container_name: nginx
@@ -22,34 +50,6 @@ services:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
-
-  server:
-    container_name: flask_server
-    build: ./server
-    volumes:
-      - ./server:/app
-    expose:
-      - "5000"
-    # ports:
-    #   - "5000:5000"
-    networks:
-      back-tier:
-        aliases:
-          - flask-app
-
-  client:
-    container_name: react_client
-    build: ./client
-    volumes:
-      - ./client/src:/usr/src/app/src
-    expose:
-      - "3000"
-    # ports:
-    #   - "5000:5000"
-    networks:
-      back-tier:
-        aliases:
-          - react-app
 
 networks:
   back-tier:
