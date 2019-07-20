@@ -1,30 +1,5 @@
 version: '3'
 services:
-
-  server:
-    container_name: flask_server
-    build: ./server
-    volumes:
-      - ./server:/app
-    expose:
-      - "5000"
-    networks:
-      back-tier:
-        aliases:
-          - flask-app
-
-  client:
-    container_name: react_client
-    build: ./client
-    volumes:
-      - ./client/src:/usr/src/app/src
-    expose:
-      - "3000"
-    networks:
-      back-tier:
-        aliases:
-          - react-app
-
   nginx: 
     depends_on:
       - client
