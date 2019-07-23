@@ -17,8 +17,6 @@ services:
       - ./server:/app
     expose:
       - "5000"
-    # ports:
-    #   - "5000:5000"
     networks:
       back-tier:
         aliases:
@@ -31,8 +29,6 @@ services:
       - ./client/src:/usr/src/app/src
     expose:
       - "3000"
-    # ports:
-    #   - "5000:5000"
     networks:
       back-tier:
         aliases:
