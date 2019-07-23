@@ -9,6 +9,7 @@ import AccountPage from './Pages/RecipePage';
 import SignUpPage from './Pages/SignUpPage';
 import { UserContext } from './Context/ContextProvider';
 import ReactGA from 'react-ga';
+import createHistory from 'history/createBrowserHistory';
 
 import {
   BrowserRouter as Router,
@@ -16,10 +17,15 @@ import {
 } from 'react-router-dom';
 import { userService } from '../services/user-service';
 
+const history = createHistory()
+ReactGA.initialize('UA-144103260-1');
+history.listen((location, action) => {
+    ReactGA.pageview(location.pathname + location.search);
+    console.log(location.pathname)
+});
+
 class App extends Component {
 	constructor(props) {
-		ReactGA.initialize('UA-144103260-1');
-		ReactGA.pageview('/homepage');
 		super(props);
 
 		this.login = (username, password) => {
