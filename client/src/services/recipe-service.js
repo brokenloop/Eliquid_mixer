@@ -7,19 +7,10 @@ import {userService} from './user-service.js'
 // ```
 
 export const recipeService = {
-    getAllRecipes,
     getUserRecipes,
     saveRecipe,
     loadRecipe,
 };
-
-function getAllRecipes() {
-    return axios.get(urls.BASE_URL + "/recipes")
-        .then(res => {
-            const recipes = res.data;
-            return recipes;
-        });
-}
 
 function saveRecipe(recipe) {
     let flavours = [];

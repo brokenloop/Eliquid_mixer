@@ -129,16 +129,4 @@ def create_user(username, password):
 
 
 if __name__ == "__main__":
-    # query = db.session.query(User.username).distinct()
-    # names = [x for x in query]
-    # print(names)
-
     db.create_all()
-    # recipe_name = "Recipe 1"
-
-    # insert_sample_recipe(recipe_name)
-    # list_recipes()
-    # recipe = recipe_by_name(recipe_name)
-    # # print(recipe.as_dict())
-    # # print([x.as_dict() for x in recipe.flavours])
-    # print(dictify_recipe(recipe))
