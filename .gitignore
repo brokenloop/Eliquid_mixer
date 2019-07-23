@@ -23,6 +23,7 @@ chrome-user-data
 .vscode
 *.swp
 *.swo
+*.db
 mongodb_credentials.txt
 secret.py
 /data/certbot
