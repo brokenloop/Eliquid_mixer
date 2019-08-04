@@ -20,8 +20,6 @@ componentDidMount() {
             this.setState({recipes});
         })
         .catch(error => {
-          console.log(error);
-          // this.props.history.push('/')
         })
 }
 

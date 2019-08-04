@@ -4,23 +4,32 @@ import React, { Component } from 'react';
 import './App.css';
 import Navbar from './Navbar';
 import Calculator from './Calculator';
-import UserPage from './Pages/UserPage';
+import LoginPage from './Pages/LoginPage';
 import AccountPage from './Pages/RecipePage';
 import SignUpPage from './Pages/SignUpPage';
 import { UserContext } from './Context/ContextProvider';
 import ReactGA from 'react-ga';
 import createHistory from 'history/createBrowserHistory';
-
+import { toast, Bounce } from 'react-toastify';
 import {
   BrowserRouter as Router,
   Route,
 } from 'react-router-dom';
 import { userService } from '../services/user-service';
 
+toast.configure({
+	autoClose: 3000,
+	transition: Bounce,
+	position: "bottom-right",
+	hideProgressBar: true,
+});
+
 const history = createHistory()
+console.log(history);
 ReactGA.initialize('UA-144103260-1');
 history.listen((location, action) => {
     ReactGA.pageview(location.pathname + location.search);
+	console.log('hello')
     console.log(location.pathname)
 });
 
@@ -62,7 +71,7 @@ class App extends Component {
 						<Navbar />
 						<div>
 							<Route exact path="/" component={Calculator} />
-							<Route path = "/account" component={UserPage} />
+							<Route path = "/login" component={LoginPage} />
 							<Route path = "/create_account" component={SignUpPage} />
 							<Route path="/recipes" component={AccountPage} />
 							<Route path = "/Calculator/:recipename" component={Calculator} />

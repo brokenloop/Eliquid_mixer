@@ -9,6 +9,8 @@ import TableRow from './TableRow';
 import RecipeName from './RecipeName';
 import {recipeService} from '../services/recipe-service.js';
 import UserContext from './Context/ContextProvider';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 class Calculator extends Component {
 
@@ -266,6 +268,12 @@ class Calculator extends Component {
       });
     }
   }
+  
+  saveRecipe() {
+    recipeService.saveRecipe(this.state) 
+    .then((response) => toast.success('Recipe saved'))
+    .catch(e => toast.error(e));
+  }
 
     componentDidMount() {
           this.loadRecipe();
@@ -278,7 +286,7 @@ class Calculator extends Component {
     let flavourInputList = this.generateFlavourInputList();
     let flavourOutputList = this.generateFlavourOutputList();
     let saveRecipeButton = this.context.isLoggedIn ? 
-      <button className="saveButton" onClick={(e) => recipeService.saveRecipe(this.state)}>Save Recipe</button>
+      <button className="saveButton" onClick={(e) => this.saveRecipe()}>Save Recipe</button>
       : null;
 
     return (

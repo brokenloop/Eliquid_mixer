@@ -16,7 +16,7 @@ function saveRecipe(recipe) {
     let flavours = [];
     let headers = {headers: userService.getAuthHeader()};
     Object.entries(recipe.flavours).forEach(([key, value]) => flavours.push(value))
-    axios.post(urls.BASE_URL + "/recipes/name/" + recipe.name, {
+    return axios.post(urls.BASE_URL + "/recipes/name/" + recipe.name, {
         name: recipe.name,
         batchvolume: recipe.batchVolume,
         batchnic: recipe.batchNic,
@@ -24,7 +24,9 @@ function saveRecipe(recipe) {
         basenic: recipe.baseNic,
         baseratio: recipe.baseRatio,
         flavours: flavours
-    }, headers);
+    }, headers)
+    .then(_ => Promise.resolve('save successful'))
+    .catch(error => Promise.reject(error));
 }
 
 function loadRecipe(recipeName) {

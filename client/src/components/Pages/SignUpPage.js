@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { userService } from '../../services/user-service.js';
 import UserContext from '../Context/ContextProvider';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './LoginPage.css';
 
 
@@ -52,7 +54,7 @@ class SignUpPage extends React.Component {
          this.props.history.push('/');
       })
       .catch(error => {
-          console.log(error);
+          toast('Username already exists')
           this.setState({
             error: "Username already exists", 
             loading: false,

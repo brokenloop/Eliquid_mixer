@@ -1,8 +1,10 @@
 // http://jasonwatmore.com/post/2018/09/11/react-basic-http-authentication-tutorial-example
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import UserContext from '../Context/ContextProvider';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './LoginPage.css';
 
 
@@ -43,10 +45,9 @@ class LoginPage extends React.Component {
   }
 
   render() {
-      console.log(this.context)
       const { username, password, submitted, loading, error } = this.state;
       if (this.context.isLoggedIn) {
-        //   return <Redirect to="/" />
+        return <Redirect to="/" />
       }
       return (
           <div className="loginPage">
