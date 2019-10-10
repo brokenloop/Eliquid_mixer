@@ -1,43 +1,42 @@
 .pageTitle {
-    margin-left: 13px;
-    margin-top: 24px;
-    margin-bottom: 24px;
-    font-weight: 400;
-    font-size: 3em;
-    color: #383838;
+  margin-left: 13px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  font-weight: 400;
+  font-size: 3em;
+  color: #383838;
 }
 
 .loginPage {
-    max-width: 500px;
-    margin: auto;
-      
+  max-width: 500px;
+  margin: auto;
 }
 
 .form-group {
-    margin-top: 30px;
-    margin-bottom: 30px;
-    
-   
+  margin: 1rem auto;
 }
 
-
-
 .form-control {
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: none;
-    border-style: none;
-    width: 94%;
-    font-size: 2em;
+  color: #5f6b7e;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border: 0.5px solid #d2d6da;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 1em;
+  font-family: 'Helvetica', 'Arial', sans-serif;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06) !important;
+  width: 94%;
+  font-size: 1.5rem;
 }
 
 .btn {
-    padding: 20px;
-    width: 98%;
-    font-size: 2em;
-    background-color: rgb(143, 163, 252);
-    cursor: pointer;
-    border-radius: 5px;
-    color: rgb(245, 245, 245);
-    letter-spacing: 0.15em;
-  }
+  padding: 20px;
+  width: 94%;
+  font-size: 2em;
+  background-color: #496ad6;
+  cursor: pointer;
+  border-radius: 5px;
+  color: rgb(245, 245, 245);
+  letter-spacing: 0.15em;
+}

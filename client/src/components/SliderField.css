@@ -1,57 +1,67 @@
 .SliderField {
-    display: grid;
-    grid-template-columns: 4fr 2fr 0.5fr;
-    margin-top: 8px;
-    margin-bottom: 8px;
-    align-items: center;
+  display: grid;
+  grid-template-columns: 4fr 2fr 0.5fr;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  align-items: center;
 }
 
 .editableLabel {
-    border: none;
-    border-radius: 4px;
-    color: #777;
-    font-size: 1em;
-    width: 85%;
-    padding: 8px;
+  border: none;
+  border-radius: 4px;
+  color: #5f6b7e;
+  font-size: 1em;
+  width: 85%;
+  padding: 8px;
 }
 
 .editableLabel:hover {
-    background-color: #f2f2f2;
+  background-color: #f2f2f2;
 }
 
 .sliderFieldInput {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    color: #777;
-    width: 100%;
-    padding: 8px 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 1em;
-    font-family: 'Helvetica', 'Arial', sans-serif;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  color: #5f6b7e;
+  width: 100%;
+  padding: 8px 20px;
+  border: 0.5px solid #d2d6da;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 1em;
+  font-family: 'Helvetica', 'Arial', sans-serif;
+  \box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06) !important;
 }
 
 .value {
-    grid-column-start: 1;
-    grid-column-end: 2;
+  grid-column-start: 1;
+  grid-column-end: 2;
 }
 
 .slider {
-    grid-column-start: 2;
-    grid-column-end: 3;
+  grid-column-start: 2;
+  grid-column-end: 3;
 }
 
 .inputSymbol {
-     position: relative;
- }
- .inputSymbol input {
-     padding-right: 0px;
- }
- .inputSymbol:after {
-     position: absolute;
-     top: 0;
-     content: attr(symbol);
-     top:8px;
-     right: 8px;
- }
+  position: relative;
+}
+.inputSymbol input {
+  padding-right: 0px;
+}
+.inputSymbol:after {
+  position: absolute;
+  top: 0;
+  content: attr(symbol);
+  top: 8px;
+  right: 8px;
+}
+
+.rc-slider-handle {
+  border-color: #496ad6 !important;
+}
+
+.rc-slider-rail,
+.rc-slider-track {
+  background-color: #496ad6 !important;
+}
