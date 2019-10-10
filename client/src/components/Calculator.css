@@ -1,4 +1,4 @@
- .Calculator {
+.Calculator {
   text-align: center;
   margin-top: 10px;
   height: 100%;
@@ -11,11 +11,10 @@
   margin: auto;
   /*grid-template-columns: 2fr 2fr;*/
   /*grid-template-areas:*/
-    /*"a b"*/
+  /*"a b"*/
   /*;*/
   padding-bottom: 8px;
   border: 8px;
-
 }
 
 .warning {
@@ -29,7 +28,7 @@
   background-color: lightgreen;
   cursor: pointer;
   border-radius: 5px;
-  color: #F5F5F5;
+  color: #f5f5f5;
   letter-spacing: 0.15em;
 }
 
@@ -37,14 +36,14 @@
 /*}*/
 
 /*.leftSection, .rightSection {*/
-    /*padding: 8px;*/
+/*padding: 8px;*/
 
 /*}*/
 
 /*.leftSection {*/
-  /*grid-area: a;*/
+/*grid-area: a;*/
 /*}*/
 
 /*.rightSection {*/
-  /*grid-area: b;*/
+/*grid-area: b;*/
 /*}*/

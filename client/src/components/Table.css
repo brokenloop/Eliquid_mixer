@@ -1,17 +1,17 @@
 table {
-    font-family: 'Helvetica', 'Arial', sans-serif;
-    border-collapse: collapse;
-    width: 100%;
+  font-family: 'Helvetica', 'Arial', sans-serif;
+  border-collapse: collapse;
+  width: 100%;
 }
 
 td {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
 }
 
 tr:nth-child(even) {
-    background-color: #dddddd;
+  background-color: #e5eaee;
 }
 
 th {

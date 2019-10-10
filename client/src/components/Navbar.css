@@ -1,8 +1,8 @@
 .navbar {
-  margin: 0;
+  margin: 1rem 0 0 0;
   padding: 0;
   overflow: hidden;
-  background-color: cornflowerblue;
+  background-color: none;
 }
 
 .navbar ul {
@@ -12,17 +12,35 @@
 }
 
 .navbar li {
-    float: right;
+  float: right;
 }
 
 .navbar li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
+  display: block;
+  color: #737b99;
+  text-align: center;
+  padding: 0.75rem 1.25rem;
+  margin-right: 0.5rem;
+  color: #475ea8;
+  border-radius: 0.25rem;
+  border: 0.5px solid #496ad6;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.navbar li:first-child a {
+  padding: 0.75rem 1.25rem;
+  color: white;
+  border-radius: 0.25rem;
+  background-color: #496ad6;
 }
 
 .navbar li a:hover {
-    background-color: #5a86d5;
+  background-color: #e9ecf8;
+}
+
+.navbar li:first-child a:hover {
+  background-color: #6688f5;
 }
